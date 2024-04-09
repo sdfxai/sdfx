@@ -1,6 +1,6 @@
 { 
   "args": {
-    "disable-xformers": false,
+    "disable-xformers": true,
     "preview-method": "taesd",
     "listen": "127.0.0.1",
     "enable-cors-header": true,
