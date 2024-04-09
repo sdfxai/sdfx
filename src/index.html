@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 0.70em;">
+  <head>
+    <title>SDFX</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta 
+      http-equiv="Content-Security-Policy" 
+      content="worker-src 'self' blob:; script-src 'self' 'unsafe-eval' 'unsafe-inline';"
+    />
+  </head>
+  <body>
+    <div id="app" class="flex-grow"></div>
+    <div id="modals"></div>
+    <div id="drawers"></div>
+    <div id="blockui"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

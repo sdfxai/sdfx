@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# files & folders for dev
+x.app.bat
+x.web.bat
+x.server.bat
+package-lock.json
+yarn.lock
+ComfyUI
+sdfx.config.json
+tmp
+node_modules
+dist
+dist_electron
+build
+release
+dist-ssr
+pid.txt
+.venv
+.env
+venv
+
+# Editor directories and files
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/.debug.env
+*.local
+package-lock.json
+*.sublime-project
+*.sublime-workspace
+*.code-workspace

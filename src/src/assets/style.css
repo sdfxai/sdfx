@@ -1,0 +1,509 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------------------------------------------- */
+
+.text-responsive-sm {
+  font-size: calc(0.75rem + (0.20 * 1vw));
+}
+.text-responsive-md {
+  font-size: calc(0.85rem + (0.25 * 1vw));
+}
+.text-responsive-lg {
+  font-size: calc(1.00rem + (0.30 * 1vw));
+}
+
+/* -------------------------------------------------------------------------- */
+
+.tw-navlink, .tw-underlink {
+  @apply cursor-pointer font-medium inline-block text-teal-600;
+  @apply transition ease-in-out duration-150;
+}
+.tw-underlink {
+  text-decoration: underline;
+}
+.tw-navlink:hover, .tw-underlink:hover {
+  @apply inline-block text-teal-500 dark:text-teal-300;
+}
+.tw-navlink:focus, .tw-underlink:focus {
+  @apply outline-none underline;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.tw-label {
+  @apply text-left text-xs leading-6 font-medium text-zinc-500 uppercase tracking-wider
+}
+.tw-formlabel {
+  @apply block text-sm font-medium leading-5 text-zinc-700 dark:text-zinc-500
+}
+
+/* -------------------------------------------------------------------------- */
+
+.tw-nav-icon {
+  @apply p-4 w-full saturate-0;
+  @apply flex flex-col items-center justify-center space-y-1;
+  @apply outline-none;
+}
+.tw-nav-icon img {
+  @apply h-8 w-8 object-contain pointer-events-none;
+}
+.tw-nav-icon:hover {
+  @apply bg-zinc-200 dark:bg-zinc-950 saturate-100;
+}
+.tw-nav-icon.router-link-exact-active {
+  @apply bg-teal-500 text-white dark:bg-teal-700 saturate-100;
+  @apply cursor-default;
+}
+
+.tw-nav-icon.router-link-exact-active .name,
+.tw-nav-icon.router-link-exact-active .avatar,
+.tw-nav-icon.router-link-exact-active .round-icon,
+.tw-nav-icon.router-link-exact-active .arrow {
+  @apply text-white;
+}
+
+.tw-nav-icon.router-link-exact-active .round-icon {
+  @apply border-teal-400 bg-teal-400 text-teal-200;
+}
+
+.tw-nav-icon.router-link-exact-active .details {
+  @apply text-teal-200 dark:text-teal-300;
+}
+
+/* -------------------------------------------------------------------------- */
+
+
+.tw-nav-item {
+  @apply px-3 py-px text-xs font-semibold shadow-sm;
+  @apply text-zinc-500 border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 rounded-md;
+  @apply flex items-center justify-between outline-none;
+}
+.tw-nav-item:hover {
+  @apply bg-zinc-200 dark:bg-zinc-900;
+}
+.tw-nav-item.router-link-exact-active {
+  @apply bg-teal-500 text-white dark:bg-teal-700;
+  @apply cursor-default;
+}
+
+.tw-nav-item.router-link-exact-active .details {
+  @apply text-teal-200 dark:text-teal-300;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.tw-button {
+  @apply cursor-pointer py-2.5 px-5 transition duration-150 ease-in-out; 
+  @apply inline-flex items-center justify-center;
+  @apply border border-transparent ring-teal-800; 
+  @apply font-medium rounded-md text-base text-white bg-teal-600;
+}
+.tw-button:hover {
+  @apply bg-teal-500
+}
+.tw-button:focus {
+  @apply outline-none ring
+}
+.tw-button.xs {
+  @apply py-2 px-4 text-xs leading-4 rounded;
+}
+.tw-button.sm {
+  @apply py-2 px-4 text-sm leading-5 rounded-md;
+}
+.tw-button.base {
+  @apply py-2.5 px-5 text-base leading-5 rounded-md;
+}
+.tw-button.md {
+  @apply py-3 px-8 text-lg leading-6 rounded-lg;
+}
+.tw-button.lg {
+  @apply py-4 px-12 text-xl leading-7 rounded-xl;
+}
+.tw-button.transparent {
+  @apply bg-transparent border border-teal-600 text-teal-600 dark:bg-teal-600 dark:bg-opacity-10;
+}
+.tw-button.transparent:hover {
+  @apply bg-teal-500 border border-teal-500 text-white;
+}
+
+
+.tw-button.gray {
+  @apply bg-zinc-800
+}
+.tw-button.gray:hover {
+  @apply bg-zinc-700
+}
+.tw-button.transparent.gray {
+  @apply bg-transparent border border-zinc-300 text-zinc-500 dark:border-zinc-700;
+}
+.tw-button.transparent.gray:hover {
+  @apply bg-zinc-50 border border-zinc-400 text-zinc-700 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white;
+}
+
+.tw-button.dark {
+  @apply bg-zinc-900
+}
+.tw-button.dark:hover {
+  @apply bg-zinc-800
+}
+.tw-button.transparent.dark {
+  @apply bg-transparent border border-zinc-900 text-zinc-900
+}
+.tw-button.transparent.dark:hover {
+  @apply bg-transparent border border-zinc-800 text-zinc-800
+}
+
+.tw-button.red {
+  @apply bg-red-600 ring-red-800
+}
+.tw-button.red:hover {
+  @apply bg-red-500
+}
+.tw-button.transparent.red {
+  @apply bg-transparent border border-red-500 dark:border-red-600 dark:bg-red-600 dark:bg-opacity-10 text-red-600
+}
+.tw-button.transparent.red:hover {
+  @apply bg-red-500 border border-red-500 text-white
+}
+
+.tw-button.pink {
+  @apply bg-pink-600 ring-pink-800
+}
+.tw-button.pink:hover {
+  @apply bg-pink-500
+}
+.tw-button.transparent.pink {
+  @apply bg-transparent border border-pink-500 text-pink-600 dark:bg-pink-600 dark:bg-opacity-10;
+}
+.tw-button.transparent.pink:hover {
+  @apply bg-pink-500 border border-pink-500 text-white
+}
+
+
+.tw-button:disabled, .tw-button.disabled {
+  @apply bg-zinc-200 dark:bg-zinc-700 bg-opacity-50 text-zinc-400 border-zinc-300 dark:border-zinc-700;
+}
+.tw-button:disabled:hover, .tw-button.disabled:hover {
+  @apply bg-zinc-200 dark:bg-zinc-700 text-zinc-400 cursor-default
+}
+
+.tw-button.transparent:disabled, .tw-button.transparent.disabled {
+  @apply bg-zinc-200 dark:bg-zinc-700 bg-opacity-50 text-zinc-400 border-zinc-300 dark:border-zinc-700;
+}
+.tw-button.transparent:disabled:hover, .tw-button.transparent.disabled:hover {
+  @apply bg-zinc-200 dark:bg-zinc-700 text-zinc-400 cursor-default
+}
+
+/* -------------------------------------------------------------------------- */
+
+.hidden-scrollbars::-webkit-scrollbar {
+ display: none;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.progress {
+  @apply w-full bg-white dark:bg-black rounded-full p-1 border border-zinc-300 dark:border-zinc-700/80;
+}
+
+.progress.nano {
+  @apply w-full bg-white dark:bg-black rounded-full p-px border border-zinc-300 dark:border-zinc-700/80;
+}
+
+.progress-bar {
+  @apply animate-pulse transition-all;
+  height: 0.5rem;
+  border-radius: 4px;
+  background-color: rgba(244, 114, 182, 0.7);
+  width: 0%;
+  background-image: linear-gradient(
+    45deg,
+    rgb(244, 114, 182) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgb(244, 114, 182) 50%,
+    rgb(244, 114, 182) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+
+.progress-bar.nano {
+  height: 0.25rem;
+}
+
+.progress-bar.green {
+  background-color: rgba(178, 225, 110, 0.7);
+  background-image: linear-gradient(
+    45deg,
+    rgb(178, 225, 110) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgb(178, 225, 110) 50%,
+    rgb(178, 225, 110) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+
+.nav-toggle {
+  @apply flex flex-col h-10 w-10 justify-center items-center scale-[0.80];
+}
+
+.nav-toggle .bar {
+  @apply h-[0.2rem] w-5 my-0.5 rounded-full bg-zinc-500 dark:bg-zinc-600 transition ease-out transform duration-200;
+  @apply opacity-100;
+}
+
+.nav-toggle:hover .bar {
+  @apply bg-zinc-800 dark:bg-zinc-200;
+}
+
+.nav-toggle:hover {
+  cursor: pointer;
+}
+
+.nav-toggle .bar.x:nth-of-type(1) {
+  @apply rotate-45 translate-y-2 opacity-100;
+}
+
+.nav-toggle .bar.x:nth-of-type(2) {
+  @apply opacity-0;
+}
+
+.nav-toggle .bar.x:nth-of-type(3) {
+  @apply -rotate-45 -translate-y-1.5 opacity-100;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.tw-icon {
+  @apply text-zinc-400 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-300;
+}
+
+.nav-button {
+  @apply flex items-center rounded p-2 text-sm transition-colors focus:outline-none focus:ring-1;
+}
+
+/* -------------------------------------------------------------------------- */
+.SDFXTabs.TabBar .button-wrapper {
+  @apply h-16 flex-shrink-0 flex items-center px-3 space-x-3 justify-between;
+}
+.SDFXTabs .tab-button {
+  @apply relative w-full pb-2 border-b-2 text-left;
+  @apply border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-500;
+}
+.SDFXTabs .tab-button.active {
+  @apply border-teal-400 dark:border-teal-300 text-teal-500 dark:text-teal-200;
+}
+.SDFXTabs .tab-button .tab-label {
+  @apply text-sm font-semibold;
+}
+
+/* --- */
+
+.SDFXTabs.TabBox .button-wrapper {
+  @apply flex items-center justify-between space-x-3;
+}
+.SDFXTabs.dots .tab-button {
+  @apply w-5 h-5 flex-shrink-0 p-0 rounded-full flex items-center justify-center;
+  @apply border border-zinc-200;
+}
+
+.dark .SDFXTabs.dots .tab-button {
+  @apply border-b border-zinc-600/60 border-t-0 border-l-0 border-r border-r-zinc-700/60;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2) inset, 1px 1px 2px 1px rgba(0, 0, 0, 0.1) inset;
+}
+
+.SDFXTabs.dots .tab-button.active {
+  @apply border-teal-400 dark:border-teal-900 text-teal-500 dark:text-teal-200;
+}
+.SDFXTabs.dots .tab-button .tab-label {
+  @apply hidden;
+}
+.SDFXTabs.dots .tab-button .tab-wrapper {
+  @apply w-3 h-3 flex-shrink-0 rounded-full bg-zinc-50 dark:bg-zinc-800/75;
+}
+.SDFXTabs.dots .tab-button.active .tab-wrapper {
+  @apply bg-teal-600;
+}
+.dark .SDFXTabs.dots .tab-button.active .tab-wrapper {
+  box-shadow: 1px 1px 2px 1px rgba(255, 255, 255, 0.15) inset, 1px 1px 2px 1px #63b3edcc, 1px 1px 16px 1px #54d1db50;
+}
+
+/* -------------------------------------------------------------------------- */
+
+#appbar {
+  -webkit-app-region: drag;
+}
+
+.appNoDrag {
+  -webkit-app-region: no-drag;
+}
+
+
+.scrollable::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #d4d4d8;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.dark .scrollable::-webkit-scrollbar {
+  background-color: #09090b;
+}
+
+
+.scrollable::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  box-shadow: inset -1px -1px 2px 1px #ffffff20, inset 1px 1px 2px 1px #00000080;
+  background: #52525b;
+}
+
+/* -------------------------------------------------------------------------- */
+
+button, .noselect {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.v-contextmenu {
+  @apply min-w-[120px] rounded-xl;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.v-contextmenu-item {
+  @apply px-3 py-2 text-base font-normal text-zinc-800 cursor-pointer;
+}
+.v-contextmenu-item--hover {
+  @apply bg-teal-600 text-white cursor-pointer;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.slide-fade-enter-active {
+  transition: all 300ms ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 200ms ease-out;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.clamp2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.medium-zoom--opened .medium-zoom-overlay {
+  z-index: 1000;
+}
+
+.medium-zoom-image.medium-zoom-image--opened {
+  z-index: 5001;
+}
+
+.splide__track--nav>.splide__list>.splide__slide.thumbnail {
+  @apply opacity-60 duration-300;
+}
+.splide__track--nav>.splide__list>.splide__slide.thumbnail.is-active {
+  @apply border-teal-500 rounded overflow-hidden opacity-100;
+}
+
+/* -------------------------------------------------------------------------- */
+
+body {
+  overflow: hidden;
+}
+
+input[type='file'] {
+  position: absolute;
+  left: -5000px;
+  top: -5000px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+@keyframes noise {
+  100% {background-position: 50% 0, 60% 50%}
+}
+
+.animated-grain > * {
+  z-index: 2;
+}
+.animated-grain:before {
+  background-image: url('@/assets/noise.jpg');
+  opacity: 0.15;
+  content: "";
+  display: block;
+  height: 300%;
+  left: -100%;
+  position: absolute;
+  top: -100%;
+  width: 300%;
+  z-index: 1;
+}
+.animated-grain:after {
+  animation: noise .2s infinite alternate;
+  background: repeating-radial-gradient(#000 0 0.0001%,#fff 0 0.0002%) 50% 0/2500px 2500px, repeating-conic-gradient(#000 0 0.0001%,#fff 0 0.0002%) 60% 60%/2500px 2500px;
+  background-blend-mode: difference;
+  opacity: 0.15;
+  content: "";
+  display: block;
+  height: 300%;
+  left: -100%;
+  position: absolute;
+  top: -100%;
+  width: 300%;
+  z-index: 1;
+}
+
+.idle {
+  @apply text-green-900 bg-green-500;
+}
+
+.started, .pending {
+  @apply text-white bg-pink-500;
+}
+
+.generating {
+  @apply text-orange-900 bg-orange-400;
+}
+
+.error {
+  @apply text-red-200 bg-red-600;
+}
+
+/* ---------------------- */
+
+.splitpanes--horizontal>.splitpanes__splitter {
+  min-height: 8px;
+  cursor: row-resize;
+  @apply bg-zinc-100 dark:bg-zinc-950 border-t border-b border-zinc-200 dark:border-zinc-900;
+}
+
+.splitpanes--vertical>.splitpanes__splitter {
+  min-width: 8px;
+  cursor: col-resize;
+  @apply bg-zinc-100 dark:bg-zinc-950 border-l border-r border-zinc-200 dark:border-zinc-900;
+}

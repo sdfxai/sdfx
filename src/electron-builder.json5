@@ -1,0 +1,30 @@
+/**
+ * @see https://www.electron.build/configuration/configuration
+ */
+{
+  appId: "SDFX",
+  asar: true,
+  directories: {
+    output: "dist_electron",
+  },
+  files: ["dist"],
+  mac: {
+    artifactName: "${productName}_${version}.${ext}",
+    target: ["dmg"],
+  },
+  win: {
+    target: [
+      {
+        target: "nsis",
+        arch: ["x64"],
+      },
+    ],
+    artifactName: "${productName}_${version}.${ext}",
+  },
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: true,
+  },
+}
