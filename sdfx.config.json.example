@@ -1,0 +1,86 @@
+{ 
+  "args": {
+    "disable-xformers": false,
+    "preview-method": "taesd",
+    "listen": "127.0.0.1",
+    "enable-cors-header": true,
+    "port": 8188
+  },
+
+  "paths": {
+    "media": {
+      "gallery": "data/media/gallery",
+      "input": "data/media/input",
+      "output": "data/media/output",
+      "workflows": "data/media/workflows",
+      "templates":  "data/media/templates",
+      "temp": "data/media/temp"
+    },
+
+    "models": {
+      "checkpoints": [
+        "data/models/checkpoints"
+      ],
+      "clip": [
+        "data/models/clip"
+      ],
+      "clip_vision": [
+        "data/models/clip_vision"
+      ],
+      "configs": [
+        "data/models/configs"
+      ],
+      "controlnet": [
+        "data/models/controlnet"
+      ],
+      "diffusers": [
+        "data/models/diffusers"
+      ],
+      "embeddings": [
+        "data/models/embeddings"
+      ],
+      "facedetection": [
+        "data/models/facedetection"
+      ],
+      "face_restore": [
+        "data/models/facerestore"
+      ],
+      "gligen": [
+        "data/models/gligen"
+      ],
+      "insightface": [
+        "data/models/insightface"
+      ],
+      "ipadapter": [
+        "data/models/ipadapter"
+      ],
+      "hypernetworks": [
+        "data/models/hypernetworks"
+      ],
+      "loras": [
+        "data/models/loras"
+      ],
+      "sams": [
+        "data/models/sams"
+      ],
+      "ultralytics": [
+        "data/models/ultralytics"
+      ],
+      "style_models": [
+        "data/models/style_models"
+      ],
+      "unet": [
+        "data/models/unet"
+      ],
+      "upscale_models": [
+        "data/models/upscale_models"
+      ],
+      "vae": [
+        "data/models/vae"
+      ],
+      "vae_approx": [
+        "data/models/vae_approx"
+      ]
+    }
+  }
+}
