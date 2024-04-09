@@ -45,7 +45,7 @@ def install_dependencies(gpu_type):
     elif gpu_type == "3":
         # DIRECTML
         subprocess.run([sys.executable, "-m", "pip", "install", "torch-directml"])
-        with open("sdfx.config.json.example", "r") as json_file:
+        with open("sdfx.config.json", "r") as json_file:
             data = json.load(json_file)
             data["args"]["directml"] = True
             with open("sdfx.config.json", "w") as outfile:
@@ -53,7 +53,7 @@ def install_dependencies(gpu_type):
         print("Installation completed for DirectML GPU.")
     elif gpu_type == "4":
         # CPU
-        with open("sdfx.config.json.example", "r") as json_file:
+        with open("sdfx.config.json", "r") as json_file:
             data = json.load(json_file)
             data["args"]["cpu"] = True
             with open("sdfx.config.json", "w") as outfile:
