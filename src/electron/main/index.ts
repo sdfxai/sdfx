@@ -81,7 +81,7 @@ const createWindow = async () => {
   } else {
     win.loadURL(url)
     // Open devTool if the app is not packaged
-    win.webContents.openDevTools({ mode: "undocked", activate: true })
+    // win.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 
   // Test actively push message to the Electron-Renderer
