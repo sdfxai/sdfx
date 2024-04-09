@@ -93,29 +93,8 @@ def update_dependencies():
     subprocess.run([sys.executable, sys.argv[0], "--install"])
 
 def run():
-    json_file = "sdfx.config.json"
-    example_file = "sdfx.config.json.example"
-
-    # Check if the SDFX JSON config file exists; if not, use the example file
-    if not os.path.exists(json_file):
-        json_file = example_file
-
-    # Load JSON data from the file
-    with open(json_file, 'r') as file:
-        config_data = json.load(file)
-
-    # Extract args values from the JSON file
-    args_list = []
-    for key, value in config_data.get('args', {}).items():
-        if value is True:
-            args_list.append(f'--{key}')
-        else:
-            args_list.append(f'--{key}={value}')
-
-    args = ' '.join(args_list)
-
     # Run ComfyUI
-    comfyui_process = subprocess.Popen('python main.py ' + args, shell=True, cwd='ComfyUI', text=True)
+    comfyui_process = subprocess.Popen('python main.py', shell=True, cwd='ComfyUI', text=True)
     comfyui_pid = comfyui_process.pid
 
     # Run app
