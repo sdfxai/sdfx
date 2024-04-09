@@ -30,9 +30,15 @@ def install_dependencies(gpu_type):
     if not os.path.exists("sdfx.config.json"):
         shutil.copy(sdfx_config_example_path, "sdfx.config.json")
 
+    # Copy the .env file if it doesn't exist
+    env_example_path = os.path.join("src", ".env.example")
+    env_path = os.path.join("src", ".env")
+    if not os.path.exists(env_path):
+        shutil.copy(env_example_path, env_path)
+
     # Install GPU dependencies
     if not gpu_type:
-        gpu_type = input("Choose your GPU type:\n1. NVIDIA\n2. AMD\n3. DIRECTML (AMD on Windows)\n4. CPU\nEnter the GPU type (1 for NVIDIA, 2 for AMD, 3 for DIRECTML, 4 for CPU): ")
+        gpu_type = input("Choose your GPU type:\n1. NVIDIA\n2. AMD\n3. DIRECTML (AMD on Windows)\n4. CPU\n5. Apple Mac Silicon\nEnter the GPU type (1 for NVIDIA, 2 for AMD, 3 for DIRECTML, 4 for CPU, 5 for Apple Mac Silicon): ")
     
     if gpu_type == "1":
         # NVIDIA - Install PyTorch for NVIDIA
