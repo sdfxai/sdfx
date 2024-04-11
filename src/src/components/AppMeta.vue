@@ -10,43 +10,43 @@
       <article class="py-2 flex items-center justify-between w-full">
         <dt class="text-zinc-400 dark:text-zinc-500 font-semibold w-24">Name</dt>
         <dd class="text-zinc-700 dark:text-zinc-200 text-right">
-          {{ workflow.name || 'Untitled' }}
+          {{ workflow?.name || 'Untitled' }}
         </dd>
       </article>
       <article class="py-2 flex items-center justify-between w-full">
         <dt class="text-zinc-400 dark:text-zinc-500 font-semibold w-24">Version</dt>
         <dd class="text-zinc-700 dark:text-zinc-200 text-right">
-          {{ workflow.meta?.version || 'n/a' }}
+          {{ workflow?.meta?.version || 'n/a' }}
         </dd>
       </article>
       <article class="py-2 flex items-center justify-between w-full">
         <dt class="text-zinc-400 dark:text-zinc-500 font-semibold w-24">Author</dt>
         <dd class="text-zinc-700 dark:text-zinc-200 text-right">
-          {{ workflow.meta?.author || 'n/a' }}
+          {{ workflow?.meta?.author || 'n/a' }}
         </dd>
       </article>
       <article class="py-2 flex items-center justify-between w-full">
         <dt class="text-zinc-400 dark:text-zinc-500 font-semibold w-24">License</dt>
         <dd class="text-zinc-700 dark:text-zinc-200 text-right">
-          {{ workflow.meta?.license || 'n/a' }}
+          {{ workflow?.meta?.license || 'n/a' }}
         </dd>
       </article>
       <article v-if="workflow?.meta?.url" class="py-2 flex items-center justify-between w-full">
         <dt class="text-zinc-400 dark:text-zinc-500 font-semibold w-24">URL</dt>
         <dd class="text-zinc-700 dark:text-zinc-200 text-right">
-          <a :href="workflow.meta?.url" class="tw-underlink" target="_blank">{{ workflow.meta?.url }}</a>
+          <a :href="workflow?.meta?.url" class="tw-underlink" target="_blank">{{ workflow?.meta?.url }}</a>
         </dd>
       </article>
       <article v-if="workflow?.meta?.keywords" class="py-2 flex items-center justify-between w-full">
         <dt class="text-zinc-400 dark:text-zinc-500 font-semibold w-24">Keywords</dt>
         <dd class="text-zinc-700 dark:text-zinc-200 text-right">
-          {{ workflow.meta?.keywords }}
+          {{ workflow?.meta?.keywords }}
         </dd>
       </article>
       <article class="py-2">
         <dt class="text-zinc-400 dark:text-zinc-500 font-semibold w-24">Description</dt>
         <dd class="text-zinc-700 dark:text-zinc-200 mt-2 line-clamp-5 flex-1">
-          {{ workflow.meta?.description || 'SDFX workflow' }}
+          {{ workflow?.meta?.description || 'SDFX workflow' }}
         </dd>
       </article>
     </div>
