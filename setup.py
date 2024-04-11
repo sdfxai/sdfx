@@ -65,6 +65,9 @@ def install_dependencies(gpu_type):
             with open("sdfx.config.json", "w") as outfile:
                 json.dump(data, outfile, indent=2)
         print("Installation completed for CPU.")
+    elif gpu_type == "5":
+        # Apple Mac Silicon
+        print("Installation completed for Apple Mac Silicon.")
     else:
         print("Invalid GPU type. Please enter 1 for NVIDIA, 2 for AMD, 3 for DIRECTML, 4 for CPU")
         sys.exit(1)
@@ -135,6 +138,8 @@ def main():
             gpu_type = "3"
         elif arg == "--cpu":
             gpu_type = "4"
+        elif arg == "--mac":
+            gpu_type = "5"
         else:
             print(f"Invalid option: {arg}")
             sys.exit(1)
