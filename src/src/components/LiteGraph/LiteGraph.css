@@ -152,6 +152,7 @@
 .litegraph .litemenu-entry:hover:not(.disabled):not(.separator) {
   background-color: #444;
   color: #eee;
+  will-change: transform;
   transition: all 0.2s;
 }
 
