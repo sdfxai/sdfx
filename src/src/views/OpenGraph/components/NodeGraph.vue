@@ -245,5 +245,6 @@ dialog::backdrop {
 .litegraph.lite-search-item.generic_type {
   color: var(--input-text);
   filter: brightness(50%);
+  will-change: transform;
 }
 </style>
