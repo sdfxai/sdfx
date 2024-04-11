@@ -7,7 +7,7 @@
   directories: {
     output: "dist_electron",
   },
-  files: ["dist"],
+  files: ["dist/**/*", "dist_electron/electron/**/*"],
   mac: {
     artifactName: "${productName}_${version}.${ext}",
     target: ["dmg"],
