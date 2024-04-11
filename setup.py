@@ -100,7 +100,7 @@ def update_dependencies():
 
 def run():
     # Run ComfyUI
-    comfyui_process = subprocess.Popen('python main.py', shell=True, cwd='ComfyUI', text=True)
+    comfyui_process = subprocess.Popen([sys.executable, 'main.py'], shell=True, cwd='ComfyUI', text=True)
     comfyui_pid = comfyui_process.pid
 
     # Run app
@@ -180,9 +180,9 @@ if __name__ == "__main__":
         # Launch a new Python process with the specified virtual environment activated
 
         if sys.platform == "win32":
-            os.system(r'cmd /c ".venv\Scripts\activate && python setup.py '+' '.join(sys.argv[1:])+'"')
+            os.system(r'cmd /c ".venv\Scripts\activate && ' + sys.executable + ' setup.py '+' '.join(sys.argv[1:])+'"')
         else:
-            subprocess.run(f"source .venv/bin/activate && python setup.py "+' '.join(sys.argv[1:]), shell=True)
+            subprocess.run(f"source .venv/bin/activate && {sys.executable} setup.py "+' '.join(sys.argv[1:]), shell=True)
 
     else:
         main()
