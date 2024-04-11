@@ -2,9 +2,7 @@
   <KeepAlive>
     <AppView v-if="route?.name === 'appview'"/>
   </KeepAlive>
-  <KeepAlive>
-    <GraphView v-if="route?.name === 'graphview'"/>
-  </KeepAlive>
+  <GraphView v-if="route?.name === 'graphview'"/>
 </template>
 
 <script setup lang="ts">

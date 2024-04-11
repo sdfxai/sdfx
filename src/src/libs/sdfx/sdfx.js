@@ -397,6 +397,8 @@ export class SDFXApp extends EventTarget {
 
       this.resizeObserver.observe(this.canvasEl.parentNode)
       this.resizeCanvas()
+    } else {
+      log('sdfx: missing canvas element for listeners init')
     }
 
     /**
@@ -408,20 +410,15 @@ export class SDFXApp extends EventTarget {
       document.addEventListener('drop', this.dropHandler)
       document.addEventListener('copy', this.copyHandler)
       document.addEventListener('paste', this.pasteHandler)
+    } else {
+      log('sdfx: keydown, keyup, drop, copy and paste listeners already instancied')
     }
 
     this.listenersInitied = true
   }
 
-  keyDownHandler(e) {
-    this.shiftDown = e.shiftKey
-  }
-
-  keyUpHandler(e) {
-    this.shiftDown = e.shiftKey
-  }
-
   removeListeners () {
+    log('sdfx: removed listeners')
     if (this.resizeObserver) {
       this.resizeObserver.disconnect()
     }
@@ -435,6 +432,16 @@ export class SDFXApp extends EventTarget {
       this.canvasEl.removeEventListener('dragleave', this.canvasDragLeaveHandler)
       this.canvasEl.removeEventListener('dragover', this.canvasDragOverHandler, false)
     }
+
+    this.listenersInitied = false
+  }
+
+  keyDownHandler(e) {
+    this.shiftDown = e.shiftKey
+  }
+
+  keyUpHandler(e) {
+    this.shiftDown = e.shiftKey
   }
 
   resizeCanvas () {
@@ -643,11 +650,15 @@ export class SDFXApp extends EventTarget {
         console.error(`sdfx: unable to get node ${nodeId}`)
         return
       }
-      for (let i=0; i<widgetIdxs.length; i++) {
-        const widgetIdx = widgetIdxs[i]
-        const value = values[i]
-        workflowNode.widgets_values[widgetIdx] = value
+
+      if (workflowNode.widgets_values) {
+        for (let i=0; i<widgetIdxs.length; i++) {
+          const widgetIdx = widgetIdxs[i]
+          const value = values[i]
+          workflowNode.widgets_values[widgetIdx] = value
+        }
       }
+
       log('sdfx: ... local workflow widgets updated ...')
     }, 250)
   }
@@ -1535,7 +1546,7 @@ export class SDFXApp extends EventTarget {
     }
 
     if (this.apiListenersInitied) {
-      console.error('sdfx: API listeners already initied')
+      console.warn('sdfx: API listeners already initied')
       return
     }
 
@@ -2510,7 +2521,10 @@ export class SDFXApp extends EventTarget {
    * @param {File} file
    */
   async handleFile(file) {
+    console.log(file)
     const allowedImageTypes = ['image/png', 'image/webp', 'image/jpg', 'image/jpeg']
+
+    this.deleteGraph()
 
     /* check for images with embeded SD metadata */
     if (allowedImageTypes.includes(file.type)) {
@@ -2609,6 +2623,8 @@ export class SDFXApp extends EventTarget {
         }
       }
     }
+
+    await this.#invokeExtensionsAsync('refreshComboInNodes', nodeDefs)
   }
 
   setGridSize(size) {
@@ -2632,6 +2648,7 @@ export class SDFXApp extends EventTarget {
   }
 
   deleteGraph() {
+    console.log('DELETE GRAPH')
     if (this.groupNodes) {
       /* unregister group nodes */
       for (const g in this.groupNodes) {

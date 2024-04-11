@@ -377,7 +377,7 @@ export class GroupNodeConfig {
     }
     if (config[0] === 'IMAGEUPLOAD') {
       if (!extra) extra = {}
-      extra.widget = `${prefix}${config[1]?.widget ?? 'image'}`
+      extra.widget = this.oldToNewWidgetMap[node.index]?.[config[1]?.widget ?? 'image'] ?? 'image'
     }
 
     if (extra) {
@@ -949,9 +949,8 @@ export class GroupNodeHandler {
         this.runningInternalNodeId !== null
       ) {
         const n = groupData.nodes[this.runningInternalNodeId]
-        const message = `Running ${n.title || n.type} (${
-          this.runningInternalNodeId
-        }/${groupData.nodes.length})`
+        if (!n) return
+        const message = `Running ${n.title || n.type} (${this.runningInternalNodeId}/${groupData.nodes.length})`
         ctx.save()
         ctx.font = '12px sans-serif'
         const sz = ctx.measureText(message)
@@ -977,6 +976,31 @@ export class GroupNodeHandler {
     this.node.onExecutionStart = function () {
       this.resetExecution = true
       return onExecutionStart?.apply(this, arguments)
+    }
+
+    const self = this
+    const onNodeCreated = this.node.onNodeCreated
+    this.node.onNodeCreated = function () {
+      if (!this.widgets) {
+        return
+      }
+      const config = self.groupData.nodeData.config
+      if (config) {
+        for (const n in config) {
+          const inputs = config[n]?.input
+          for (const w in inputs) {
+            if (inputs[w].visible !== false) continue
+            const widgetName = self.groupData.oldToNewWidgetMap[n][w]
+            const widget = this.widgets.find((w) => w.name === widgetName)
+            if (widget) {
+              widget.type = 'hidden'
+              widget.computeSize = () => [0, -4]
+            }
+          }
+        }
+      }
+
+      return onNodeCreated?.apply(this, arguments)
     }
 
     function handleEvent(type, getId, getEvent) {
@@ -1019,6 +1043,26 @@ export class GroupNodeHandler {
       onRemoved?.apply(this, arguments)
       api.removeEventListener('executing', executing)
       api.removeEventListener('executed', executed)
+    }
+
+    this.node.refreshComboInNode = (defs) => {
+      // Update combo widget options
+      for (const widgetName in this.groupData.newToOldWidgetMap) {
+        const widget = this.node.widgets.find((w) => w.name === widgetName)
+        if (widget?.type === 'combo') {
+          const old = this.groupData.newToOldWidgetMap[widgetName]
+          const def = defs[old.node.type]
+          const input = def?.input?.required?.[old.inputName] ?? def?.input?.optional?.[old.inputName]
+          if (!input) continue
+
+          widget.options.values = input[0]
+
+          if (old.inputName !== 'image' && !widget.options.values.includes(widget.value)) {
+            widget.value = widget.options.values[0]
+            widget.callback(widget.value)
+          }
+        }
+      }
     }
   }
 
@@ -1311,7 +1355,16 @@ const ext = {
     if (GroupNodeHandler.isGroupNode(node)) {
       node[GROUP] = new GroupNodeHandler(node)
     }
-  }
+  },
+
+  async refreshComboInNodes(defs) {
+    // Re-register group nodes so new ones are created with the correct options
+    Object.assign(globalDefs, defs)
+    const nodes = app.graph.extra?.groupNodes
+    if (nodes) {
+      await GroupNodeConfig.registerFromWorkflow(nodes, {})
+    }
+  }  
 }
 
 app.registerExtension(ext)
