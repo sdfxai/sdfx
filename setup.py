@@ -99,6 +99,7 @@ def update_dependencies():
     subprocess.run(["git", "pull"])
     os.chdir("custom_nodes")
     subprocess.run(["git", "pull"])
+    os.chdir("../..")
     subprocess.run([sys.executable, sys.argv[0], "--install"])
 
 def run():
