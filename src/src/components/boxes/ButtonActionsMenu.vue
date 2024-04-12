@@ -20,16 +20,22 @@
     </section>
 
     <ul class="py-2 font-semibold text-base text-zinc-800 dark:text-zinc-300 divide-y divide-zinc-300 dark:divide-zinc-900">
-      <!-- save workflow -->
-      <li @click="refreshApp()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
+      <!-- refresh App -->
+      <li @click="refreshSDFX()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
         <ArrowPathIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
-        <span>Refresh App</span>
+        <span>Refresh SDFX</span>
       </li>
-
-      <!-- save workflow -->
+      
+      <!-- export app -->
       <li @click="saveCurrentWorkflow()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
         <ArrowDownTrayIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
-        <span>Download App</span>
+        <span>Save App</span>
+      </li>
+
+      <!-- export app -->
+      <li @click="exportCurrentWorkflow()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
+        <ArrowDownTrayIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
+        <span>Export App</span>
       </li>
 
       <!-- reset app -->
@@ -65,10 +71,12 @@ const props = defineProps({
 
 const { confirm } = useConfirm()
 const { prompt } = usePrompt()
-const mainStore = useMainStore()
-const { nodegraph } = storeToRefs(useGraphStore())
 
-const saveCurrentWorkflow = async () => {
+const mainStore = useMainStore()
+const graphStore = useGraphStore()
+const { nodegraph } = storeToRefs(graphStore)
+
+const exportCurrentWorkflow = async () => {
   const name: string = nodegraph.value.currentWorkflow?.name || 'workflow'
   const filename = await prompt({
     title: 'App name',
@@ -88,6 +96,26 @@ const saveCurrentWorkflow = async () => {
   saveJSONFile(filename, json)
 }
 
+const saveCurrentWorkflow = async () => {
+  const name: string = nodegraph.value.currentWorkflow?.name || 'workflow'
+  const filename = await prompt({
+    title: 'App name',
+    placeholder: 'Name',
+    value: name,
+    buttons: {
+      submit: 'Save',
+      cancel: 'Cancel'
+    }
+  })
+
+  // @ts-ignore
+  if (!filename || !filename.trim()) return
+
+  const json = sdfx.getGraphData()
+  sdfx.saveGraphData()
+  graphStore.addApp(json)
+}
+
 const resetCurrentApp = async () => {
   const answer = await confirm({
     message: "Reset to factory settings?",
@@ -103,7 +131,7 @@ const resetCurrentApp = async () => {
   }
 }
 
-const refreshApp = () => {
+const refreshSDFX = () => {
   window.location.reload()
 }
 
