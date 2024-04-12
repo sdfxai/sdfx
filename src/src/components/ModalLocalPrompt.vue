@@ -8,7 +8,7 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div v-if="open" class="absolute inset-0 z-50 bg-teal-700/20" @click="close()"></div>
+      <div v-if="open" class="absolute inset-0 z-[100] bg-teal-700/20" @click="close()"></div>
     </transition>
     <TWDragWin v-if="open" :resizable="false" :minHeight="200" :maxHeight="400" :minWidth="250" :maxWidth="450" :width="300" @close="$emit('close')" @enter="submit" :position="position">
       <template #head>

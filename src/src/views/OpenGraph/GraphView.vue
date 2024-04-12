@@ -3,7 +3,7 @@
     <!-- toolbar -->
     <WorkspaceBar/>
     <NodeGraph/>
-    <NodePanel/>
+    <BottomPanel/>
 
     <SlideDrawer :open="editorIsOpen" :showFooter="false" minwidth="384px" width="96vw" height="80vh"  orientation="top" @close="closeImageEditorDrawer()">
       <div class="flex h-full justify-between">
@@ -40,7 +40,7 @@ import { dataURLToBlob } from '@/utils/image'
 
 import ImageEditor from '@/views/ImageEditor/Index.vue'
 import NodeGraph from '@/views/OpenGraph/components/NodeGraph.vue'
-import NodePanel from '@/views/OpenGraph/components/NodePanel.vue'
+import BottomPanel from '@/views/OpenGraph/components/BottomPanel.vue'
 import SlideDrawer from '@/components/UI/SlideDrawer.vue'
 import BoxPreviewEditor from '@/components/boxes/BoxPreviewEditor.vue'
 import WorkspaceBar from '@/layout/WorkspaceBar.vue'

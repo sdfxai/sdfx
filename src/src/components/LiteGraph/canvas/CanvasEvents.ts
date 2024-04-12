@@ -687,6 +687,12 @@ export class CanvasEvents {
         //it wasn't clicked on the links boxes
         if (!skip_action) {
           block_drag_node = false
+  
+          // disable dragging if node is pinned
+          if(node && node.flags && node.flags.pinned) {
+            block_drag_node = true
+          }
+
           const pos = [e.canvasX - node.pos[0], e.canvasY - node.pos[1]]
   
           //widgets

@@ -12,13 +12,8 @@ export class CanvasContextMenu {
   constructor(public lcanvas: LCanvas) {}
   
   static onMenuNodeRemove(value: any, options: any, e: any, menu: any, node: any) {
-    console.log(value)
-    console.log(options)
-    console.log(e)
-    console.log(node)
-  
     if (!node) {
-      throw 'no node passed'
+      throw 'onMenuNodeRemove: missing node'
     }
   
     const graph = node.graph
@@ -26,14 +21,10 @@ export class CanvasContextMenu {
   
     const graphcanvas = LCanvas.active_canvas
     if (!graphcanvas.selected_nodes || Object.keys(graphcanvas.selected_nodes).length <= 1) {
-      node.removable && (
-        graph.remove(node)
-      )
+      graph.remove(node)
     } else {
       for (let i in graphcanvas.selected_nodes) {
-        node.removable && (
-          graph.remove(graphcanvas.selected_nodes[i])
-        )
+        graph.remove(graphcanvas.selected_nodes[i])
       }
     }
   

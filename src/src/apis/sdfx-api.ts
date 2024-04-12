@@ -273,7 +273,20 @@ export class SDFXAPI extends EventTarget {
     }    
   } 
   */
- 
+
+  /**
+   * Reboot server
+   */
+  async reboot() {
+    try {
+      const resp: any = await this.restApi('GET', '/manager/reboot')
+      return await resp.json()
+    } catch (e) {
+      console.error('Unable to reboot server.')
+      return null
+    }    
+  }
+  
   /**
    * Install a custom node
    */
