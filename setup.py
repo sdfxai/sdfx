@@ -23,6 +23,13 @@ def install_dependencies(gpu_type):
         sdfx_project_url = "https://github.com/sdfxai/SDFXBridgeForComfyUI"
         subprocess.run(["git", "clone", sdfx_project_url])
 
+    # Clone ComfyUI-Manager custom_node if it doesn't exist
+    comfyui_manager_path = os.path.join(original_dir, "ComfyUI", "custom_nodes", "ComfyUI-Manager")
+    if not os.path.exists(comfyui_manager_path):
+        os.chdir("ComfyUI/custom_nodes")
+        sdfx_project_url = "https://github.com/ltdrdata/ComfyUI-Manager.git"
+        subprocess.run(["git", "clone", sdfx_project_url])
+
     os.chdir(original_dir)
 
     # Copy the example config file if it doesn't exist
