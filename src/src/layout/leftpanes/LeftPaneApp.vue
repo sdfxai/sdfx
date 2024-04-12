@@ -1,29 +1,9 @@
 <template>
   <DroppableSection @filedrop="handleFileDrop">
     <Pane class="leftpane-app" position="left" title="Applications">
-      <template #head>
-        <TWTabs
-          v-if="false"
-          v-model="tab"
-          :tabs="[
-            {id:'apps', name:'Apps'},
-            {id:'templates', name:'Templates'}
-          ]"
-        />
-
-        <nav v-if="tab==='apps' && appList.length>4" class="px-3 py-2 h-16 flex-shrink-0 flex items-center">
-          <TWSearch v-model="queryApp" class="w-full" />
-        </nav>  
-      </template>
-
       <template #body>
         <ScrollableSection class="flex flex-1 h-full flex-col space-y-2 p-3 bg-zinc-100 dark:bg-zinc-800/80">
-          <div v-if="tab==='apps'">
-            <AppList :query="queryApp"/>
-          </div>
-          <div v-if="tab==='templates'">
-            Dummy
-          </div>
+          <AppList :query="queryApp"/>
         </ScrollableSection>
       </template>
 
@@ -38,13 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-import { api } from '@/apis'
 import config from "@/utils/app.config"
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useModelStore, useGraphStore, storeToRefs } from '@/stores'
 import Pane from '@/layout/Pane.vue'
-import TWTabs from '@/components/UI/TWTabs.vue'
-import TWSearch from '@/components/UI/TWSearch.vue'
 import AppList from '@/components/AppList.vue'
 import ScrollableSection from '@/components/ScrollableSection.vue'
 import DroppableSection from '@/components/DroppableSection.vue'
