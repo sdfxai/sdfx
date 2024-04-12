@@ -9,13 +9,14 @@
           <div class="absolute inset-0 z-0 opacity-[0.15] dark:opacity-[0.40]" :style="{backgroundColor:node.bgcolor}"></div>
           
           <div class="relative flex items-center justify-between z-1 space-x-3">
+            <div class="flex-1 flex justify-start">
+              <span class="w-9 text-zinc-500">#{{ node.id }}</span>
+              <span class="flex-1">{{ node.title ? node.title : node.type }}</span>
+            </div>
+
             <!-- node image -->
             <div v-if="node.imgs && node.imgs.length>0" class="w-10 h-10 flex-shrink-0">
               <img :src="node.imgs[0].src" class="w-full h-full object-cover rounded" />
-            </div>
-
-            <div class="flex-1">
-              {{ node.title ? node.title : node.type }}
             </div>
 
             <span class="flex items-center justify-between space-x-2">
@@ -87,6 +88,6 @@ const filteredNodeList = computed(() => {
   if (props.query) {
     //.sort((a,b) => (a.type > b.type) ? 1 : ((b.type > a.type) ? -1 : 0))
   }
-  return results
+  return results.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
 })
 </script>
