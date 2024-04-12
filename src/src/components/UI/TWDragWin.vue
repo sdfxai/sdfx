@@ -1,5 +1,5 @@
 <template>
-  <div ref="dragwin" class="DragWin absolute left-0 top-0 z-[60] w-full flex flex-col">
+  <div ref="dragwin" class="DragWin absolute left-0 top-0 z-[100] w-full flex flex-col">
     <div class="flex-1 h-full win-wrapper relative flex flex-col">
       <div class="win-head noselect" :class="[isDragging?'cursor-grabbing':'cursor-grab']" @mousedown="startDrag">
         <slot name="head"/>
