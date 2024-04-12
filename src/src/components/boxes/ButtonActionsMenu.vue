@@ -112,6 +112,7 @@ const saveCurrentWorkflow = async () => {
   if (!filename || !filename.trim()) return
 
   const json = sdfx.getGraphData()
+  json.name = filename
   sdfx.saveGraphData()
   graphStore.addApp(json)
 }

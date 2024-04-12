@@ -8,7 +8,7 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div v-if="open" class="absolute inset-0 z-50 bg-teal-700/20" @click="close()"></div>
+      <div v-if="open" class="absolute inset-0 z-[100] bg-teal-700/20" @click="close()"></div>
     </transition>
     <TWDragWin v-if="open" class="ModalInput" @close="$emit('close')" @enter="submit" :position="position">
       <div class="w-96 noselect text-zinc-700 dark:text-white bg-white dark:bg-zinc-900/90 shadow-xl rounded-2xl">
