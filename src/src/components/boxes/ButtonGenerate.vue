@@ -63,7 +63,7 @@ const addToQueue = () => {
 const handleKeydown = (e: any) => {
   if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return false
 
-  if (e.keyCode===13 && (e.shiftKey || e.altKey)) {
+  if (e.keyCode===13 && (e.ctrlKey || e.altKey)) {
     addToQueue()
     e.preventDefault()
   }
