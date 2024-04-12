@@ -222,6 +222,14 @@ Make sure your system meets the following requirements:
 ```
 Then open ```setup.bat``` to install dependencies
 
+<details>
+<summary>Error says no Python, but it's installed?</summary>
+A common mistake is forgetting to check the option to add Python to the PATH during installation, as it's often unchecked by default in the installer wizard. Make sure Python is added to your system's environment variables to run the script smoothly.
+
+![SDFX Screenshot](/docs/static/install-python-env.png)
+</details>
+
+
 ### Linux/MacOs
 
 ```bash

@@ -90,8 +90,10 @@ def install_dependencies(gpu_type):
 
     # SDFX front dependencies
     subprocess.run(f"cd src && npm install", shell=True)
-    
-    print("\nFinished! Run ./run.sh to launch SDFX")
+    if sys.platform == "win32":
+        print("\nFinished! Run .\\run.bat to launch SDFX")
+    else:
+        print("\nFinished! Run ./run.sh to launch SDFX")
 
 def update_dependencies():
     # Update SDFX custom_node
