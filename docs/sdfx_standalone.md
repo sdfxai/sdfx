@@ -35,12 +35,17 @@ you can simply use ComfyUI-Manager to install it
 
 **Don't forget to relaunch your comfyUI instance after the installation**
 
-## Install and launch SDFX in standalone mode 
+## Install SDFX in standalone mode 
 
 ```bash
 git clone https://github.com/sdfxai/sdfx
-cd sdfx/src && npm install && npm run dev
+cd sdfx/src && npm install
 ```
 
+## Launch SDFX
+
+```bash
+npm run dev
+```
 This will launch the SDFX frontend, which will automatically communicate with your ComfyUI backend (assuming it runs on http://127.0.0.1:8188).
 
