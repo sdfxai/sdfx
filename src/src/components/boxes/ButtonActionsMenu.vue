@@ -26,9 +26,9 @@
         <span>Refresh SDFX</span>
       </li>
       
-      <!-- export app -->
+      <!-- save app -->
       <li @click="saveCurrentWorkflow()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
-        <ArrowDownTrayIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
+        <ArrowUpTrayIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
         <span>Save App</span>
       </li>
 
@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { TrashIcon, ArrowPathIcon, ArrowDownTrayIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid'
+import { TrashIcon, ArrowPathIcon, ArrowUpTrayIcon, ArrowDownTrayIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid'
 import { saveJSONFile } from '@/utils'
 import { useConfirm } from '@/components/UI/VueConfirm/VueConfirm'
 import { usePrompt } from '@/components/UI/VuePrompt/VuePrompt'
