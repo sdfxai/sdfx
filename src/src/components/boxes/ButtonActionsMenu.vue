@@ -21,6 +21,12 @@
 
     <ul class="py-2 font-semibold text-base text-zinc-800 dark:text-zinc-300 divide-y divide-zinc-300 dark:divide-zinc-900">
       <!-- save workflow -->
+      <li @click="refreshApp()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
+        <ArrowPathIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
+        <span>Refresh App</span>
+      </li>
+
+      <!-- save workflow -->
       <li @click="saveCurrentWorkflow()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
         <ArrowDownTrayIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
         <span>Download App</span>
@@ -42,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { TrashIcon, ArrowDownTrayIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid'
+import { TrashIcon, ArrowPathIcon, ArrowDownTrayIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid'
 import { saveJSONFile } from '@/utils'
 import { useConfirm } from '@/components/UI/VueConfirm/VueConfirm'
 import { usePrompt } from '@/components/UI/VuePrompt/VuePrompt'
@@ -95,6 +101,10 @@ const resetCurrentApp = async () => {
     const uid = nodegraph.value.currentAppId
     sdfx.loadAppId(uid, true)
   }
+}
+
+const refreshApp = () => {
+  window.location.reload()
 }
 
 const cleanAll = () => {
