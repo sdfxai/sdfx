@@ -23,6 +23,13 @@ def install_dependencies(gpu_type):
         sdfx_project_url = "https://github.com/sdfxai/SDFXBridgeForComfyUI"
         subprocess.run(["git", "clone", sdfx_project_url])
 
+    # Clone ComfyUI-Manager custom_node if it doesn't exist
+    comfyui_manager_path = os.path.join(original_dir, "ComfyUI", "custom_nodes", "ComfyUI-Manager")
+    if not os.path.exists(comfyui_manager_path):
+        os.chdir("ComfyUI/custom_nodes")
+        sdfx_project_url = "https://github.com/ltdrdata/ComfyUI-Manager.git"
+        subprocess.run(["git", "clone", sdfx_project_url])
+
     os.chdir(original_dir)
 
     # Copy the example config file if it doesn't exist
@@ -90,8 +97,10 @@ def install_dependencies(gpu_type):
 
     # SDFX front dependencies
     subprocess.run(f"cd src && npm install", shell=True)
-    
-    print("\nFinished! Run ./run.sh to launch SDFX")
+    if sys.platform == "win32":
+        print("\nFinished! Run .\\run.bat to launch SDFX")
+    else:
+        print("\nFinished! Run ./run.sh to launch SDFX")
 
 def update_dependencies():
     # Update SDFX custom_node
@@ -99,6 +108,7 @@ def update_dependencies():
     subprocess.run(["git", "pull"])
     os.chdir("custom_nodes")
     subprocess.run(["git", "pull"])
+    os.chdir("../..")
     subprocess.run([sys.executable, sys.argv[0], "--install"])
 
 def run():
