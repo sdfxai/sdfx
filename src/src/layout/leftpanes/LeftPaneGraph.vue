@@ -5,18 +5,18 @@
         <TWTabs
           v-model="tab"
           :tabs="[
-            {id:'nodes', name:'Nodes'},
             {id:'apps', name:'Applications'},
+            {id:'nodes', name:'Nodes'},
             {id:'templates', name:'Templates'}
           ]"
         />
 
-        <nav v-if="tab==='nodes' && nodegraph.currentWorkflow" class="px-3 py-2">
-          <TWSearch v-model="queryNode" class="w-full" />
+        <nav v-if="tab==='apps'" class="px-3 py-2">
+          <TWSearch v-model="queryApp" class="w-full" />
         </nav>
 
-        <nav v-if="tab==='apps' && nodegraph.currentWorkflow" class="px-3 py-2">
-          <TWSearch v-model="queryApp" class="w-full" />
+        <nav v-if="tab==='nodes' && nodegraph.currentWorkflow" class="px-3 py-2">
+          <TWSearch v-model="queryNode" class="w-full" />
         </nav>
       </template>
 
@@ -77,7 +77,7 @@ const graphStore = useGraphStore()
 const { nodegraph } = storeToRefs(graphStore)
 const mapping = computed(() => nodegraph.value.currentMapping || {})
 
-const tab = ref('nodes')
+const tab = ref('apps')
 const queryNode = ref('')
 const queryApp = ref('')
 
