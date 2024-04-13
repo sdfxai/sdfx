@@ -1,7 +1,7 @@
 <template>
   <TransitionRoot appear :show="isOpen" as="template">
     <Dialog :open="true" as="div" @close="close">
-      <div class="vue-confirm fixed inset-0 z-50 overflow-y-auto">
+      <div class="vue-confirm fixed inset-0 z-[100] overflow-y-auto">
         <div class="min-h-screen px-4 text-center">
           <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100" leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
             <DialogOverlay class="fixed inset-0 bg-zinc-950 bg-opacity-50" />
