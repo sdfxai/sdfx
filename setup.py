@@ -103,17 +103,23 @@ def install_dependencies(gpu_type):
         print("\nFinished! Run ./run.sh to launch SDFX")
 
 def update_dependencies():
-    # Update SDFX custom_node
+    # Update SDFX front
+    print("Updating SDFX front...")
+    subprocess.run(["git", "pull"])
+    # Update ComfyUI
     os.chdir("ComfyUI")
+    print("Updating ComfyUI...")
     subprocess.run(["git", "pull"])
-    os.chdir("custom_nodes")
+    # Update SDFX custom_node
+    os.chdir(os.path.join("custom_nodes", "SDFXBridgeForComfyUI"))
+    print("Updating SDFX custom_node...")
     subprocess.run(["git", "pull"])
-    os.chdir("../..")
+    os.chdir(os.path.join('..', '..', '..'))
     subprocess.run([sys.executable, sys.argv[0], "--install"])
 
 def run():
     # Run ComfyUI
-    comfyui_process = subprocess.Popen([sys.executable, 'main.py'], shell=True, cwd='ComfyUI', text=True)
+    comfyui_process = subprocess.Popen([sys.executable, 'main.py'], cwd='ComfyUI', text=True)
     comfyui_pid = comfyui_process.pid
 
     # Run app
