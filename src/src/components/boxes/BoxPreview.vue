@@ -1,5 +1,5 @@
 <template>
-  <Box title="Preview" :flexible="true" :isScrollable="false" class="box h-full">
+  <Box title="Preview" :flexible="true" :isScrollable="false" class="BoxPreview box h-full">
     <template #right>
       <div v-if="progress.percent>0" class="flex-1 text-zinc-600 dark:text-zinc-200 font-mono h-5 flex space-x-2 uppercase text-xs font-semibold overflow-hidden">
         <!-- progress bar -->
@@ -68,7 +68,6 @@
         </svg>
       </div>
     </div>
-
 
     <SlideDrawer :open="openComparisonDrawer" :showFooter="false" minwidth="384px" :maxwidth="`${1024}px`" :title="`Before / After`" orientation="top" @close="openComparisonDrawer=false">
       <ImageComparator

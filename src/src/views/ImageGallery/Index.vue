@@ -1,8 +1,16 @@
 <template>
   <div class="w-full flex flex-col noselect">
     <!-- menu -->
-    <nav class="relative z-10 h-16 flex-shrink-0 px-3 bg-transparent border-b border-zinc-200 dark:border-black flex items-center justify-between">
-      <dt class="flex items-center space-x-2">        
+    <nav class="relative z-10 h-10 flex-shrink-0 pl-3 pr-4 bg-zinc-900 border-b border-zinc-200 dark:border-black flex items-center justify-between">
+      <dt class="flex items-center justify-between space-x-3">
+        <button @click="parameters.gallery.mode='slider'">
+          <ViewColumnsIcon class="w-6 h-6" :class="[parameters.gallery.mode==='slider'?'text-teal-500':'text-zinc-500']"/>
+        </button>
+        <button @click="parameters.gallery.mode='gallery'">
+          <SquaresPlusIcon class="w-6 h-6" :class="[parameters.gallery.mode==='gallery'?'text-teal-500':'text-zinc-500']"/>
+        </button>
+      </dt>
+      <dt class="ml-3 flex-1 flex items-center space-x-2">        
         <div v-if="imageGallery.length>0" class="flex-1 text-base font-semibold">
           {{ imageGallery.length }} pictures
         </div>
@@ -11,26 +19,24 @@
         </div>
       </dt>
 
-      <dt class="w-72 flex items-center justify-between space-x-3">
+      <div class="w-84 flex items-center justify-end space-x-3">
         <TWSlider
+          v-if="parameters.gallery.mode==='gallery'"
           v-model="parameters.gallery.nb_images"
           :min="2"
           :max="12"
           :interval="1"
-          :range="[2, 6, 12]"
+          :range="[2, 4, 6, 8, 10, 12]"
           @change="setDynamicColumns"
           class="flex-1 pr-6"
         />
-        <button @click="parameters.gallery.mode='slider'">
-          <ViewColumnsIcon class="w-6 h-6" :class="[parameters.gallery.mode==='slider'?'text-teal-500':'text-zinc-500']"/>
-        </button>
-        <button @click="parameters.gallery.mode='gallery'">
-          <SquaresPlusIcon class="w-6 h-6" :class="[parameters.gallery.mode==='gallery'?'text-teal-500':'text-zinc-500']"/>
-        </button>
-        <button @click="cleanImageGallery()">
-          <TrashIcon class="tw-icon h-6 w-6"/>
-        </button>
-      </dt>
+
+        <dt class=" flex items-center justify-between space-x-3">
+          <button @click="cleanImageGallery()">
+            <TrashIcon class="tw-icon h-6 w-6"/>
+          </button>
+        </dt>
+      </div>
     </nav>
 
     <!-- slider -->
@@ -40,7 +46,7 @@
 
     <!-- gallery -->
     <div ref="scrollable" class="h-[calc(100vh-140px)]">
-      <ul v-if="parameters.gallery.mode==='gallery'" id="griddy" class="grid grid-cols-8 gap-px">
+      <ul ref="griddy" v-if="parameters.gallery.mode==='gallery'" class="grid grid-cols-8 gap-px">
         <li v-for="(image, idx) in imageGallery" :key="`p${idx}`" class="bg-black">
           <div class="">
             <imgz :src="`${image}`" class="object-contain" />
@@ -64,6 +70,7 @@ import Scrollbar from 'smooth-scrollbar'
 const { confirm } = useConfirm()
 const { parameters, imageGallery } = storeToRefs(useModelStore())
 
+const griddy = ref<HTMLElement | null>(null)
 const scrollable = ref<any>(null)
 
 const cleanImageGallery = async ()=>{
@@ -80,11 +87,11 @@ const cleanImageGallery = async ()=>{
   }
 }
 
-function setDynamicColumns(cols: any) {
-  const griddy = document.querySelector<HTMLElement>('#griddy')
-  if (griddy) {
+const setDynamicColumns = (cols: number)=>{
+  const grid = griddy.value
+  if (grid) {
     // @ts-ignore
-    griddy.style['grid-template-columns'] = `repeat(${12-cols}, minmax(0, 1fr))`
+    grid.style['grid-template-columns'] = `repeat(${12-cols}, minmax(0, 1fr))`
   }
 }
 

@@ -1,5 +1,13 @@
 <template>
-  <header class="noselect relative z-50 flex items-center justify-between px-3 h-10 foverflow-hidden flex-shrink-0 border-t border-zinc-300 dark:border-black bg-zinc-50 dark:bg-zinc-900">
+  <header class="noselect relative z-50 flex items-center justify-between px-3 h-10 foverflow-hidden flex-shrink-0 border-t border-b border-zinc-300 dark:border-black bg-zinc-50 dark:bg-zinc-900">
+    <div class="h-8 flex items-center justify-center">
+      <button @click="toggleLeftPane()" class="nav-toggle">
+        <span class="bar" :class="[status.isLeftPaneVisible?'x':'']"></span>
+        <span class="bar" :class="[status.isLeftPaneVisible?'x':'']"></span>
+        <span class="bar" :class="[status.isLeftPaneVisible?'x':'']"></span>
+      </button>
+    </div>
+
     <div class="flex space-x-2">
       <div class="flex space-x-2">
         <router-link to="/" class="tw-nav-item">
@@ -10,6 +18,7 @@
         </router-link>
       </div>
     </div>
+
     <div class="ml-auto flex space-x-3">
       <a href="https://sdfx.ai" target="_blank" class="flex items-center group font-semibold text-zinc-500 hover:text-teal-800 dark:text-zinc-400 dark:hover:text-teal-200 rounded-md border border-zinc-300 hover:border-teal-600 dark:border-zinc-800 dark:hover:border-teal-700 text-xs space-x-2 px-2 h-8 justify-center">
         <svg class="w-4 h-4 text-zinc-400 dark:text-zinc-600 group-hover:text-teal-500 dark:group-hover:text-teal-400" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -34,13 +43,13 @@
         <ChevronUpDownIcon class="tw-icon h-6 w-6 duration-500 ease-out rotate-90" />
       </button>
 
-      <div v-if="!status.isRightPaneVisible" class="h-8 flex items-center justify-center">
-        <button @click="toggleRightPane()" class="nav-toggle">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-      </div>
+      <div class="h-8 flex items-center justify-center">
+      <button @click="toggleRightPane()" class="nav-toggle">
+        <span class="bar" :class="[status.isRightPaneVisible?'x':'']"></span>
+        <span class="bar" :class="[status.isRightPaneVisible?'x':'']"></span>
+        <span class="bar" :class="[status.isRightPaneVisible?'x':'']"></span>
+      </button>
+    </div>
     </div>
   </header>
 </template>
@@ -64,4 +73,7 @@ const toggleRightPane = () => {
   mainStore.toggleRightPane()
 }
 
+const toggleLeftPane = ()=>{
+  mainStore.toggleLeftPane()
+}
 </script>

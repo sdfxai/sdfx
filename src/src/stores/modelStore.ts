@@ -127,11 +127,11 @@ export const useModelStore = defineStore('modelStore', {
       this.promptTracks = defPromptTracks
     },
 
-    updateImageGallery (images: any[]) {
+    updateImageGallery(images: any[]) {
       this.imageGallery = images
     },
 
-    appendImageGallery (images: any[]) {
+    appendImageGallery(images: any[]) {
       this.imageGallery = [
         ...this.imageGallery,
         ...images

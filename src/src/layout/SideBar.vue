@@ -6,24 +6,19 @@
       status.isLeftPaneVisible?'w-16':'w-16'
     ]"
   >
-    <div class="h-10 flex items-center justify-center">
-      <button @click="toggleLeftPane()" class="nav-toggle">
-        <span class="bar" :class="[status.isLeftPaneVisible?'x':'']"></span>
-        <span class="bar" :class="[status.isLeftPaneVisible?'x':'']"></span>
-        <span class="bar" :class="[status.isLeftPaneVisible?'x':'']"></span>
-      </button>
-    </div>
 
-    <nav class="flex-1 noselect flex justify-center">
+
+    <nav class="flex-1 noselect text-xs font-semibold text-zinc-600 dark:text-zinc-300">
       <!-- dummy -->
+      <router-link to="/" exact class="tw-nav-icon">
+        <img src="/img/app.png" draggable="false"/>
+      </router-link>
+      <router-link to="/gallery" class="tw-nav-icon">
+        <img src="/img/gallery.png" draggable="false"/>
+      </router-link>
     </nav>
 
     <nav v-if="false" class="flex-1 noselect text-xs font-semibold text-zinc-600 dark:text-zinc-300">
-      <router-link to="/" class="tw-nav-icon">
-        <img src="/img/app.png" draggable="false"/>
-        <div>App</div>
-      </router-link>
-
       <router-link to="/graph" class="tw-nav-icon">
         <img src="/img/graph.png" draggable="false"/>
         <div>Graph</div>
@@ -33,11 +28,6 @@
         <img src="/img/edit.png" draggable="false"/>
         <div>Editor</div>
       </router-link>      
-      
-      <router-link to="/gallery" class="tw-nav-icon">
-        <img src="/img/gallery.png" draggable="false"/>
-        <div>Gallery</div>
-      </router-link>
 
       <router-link to="/creator" class="tw-nav-icon">
         <img src="/img/creator.png" draggable="false"/>

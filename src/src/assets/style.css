@@ -52,23 +52,23 @@
 .tw-nav-icon:hover {
   @apply bg-zinc-200 dark:bg-zinc-950 saturate-100;
 }
-.tw-nav-icon.router-link-exact-active {
-  @apply bg-teal-500 text-white dark:bg-teal-700 saturate-100;
+.tw-nav-icon.router-link-active {
+  @apply bg-teal-500 text-white dark:bg-zinc-950 saturate-100;
   @apply cursor-default;
 }
 
-.tw-nav-icon.router-link-exact-active .name,
-.tw-nav-icon.router-link-exact-active .avatar,
-.tw-nav-icon.router-link-exact-active .round-icon,
-.tw-nav-icon.router-link-exact-active .arrow {
+.tw-nav-icon.router-link-active .name,
+.tw-nav-icon.router-link-active .avatar,
+.tw-nav-icon.router-link-active .round-icon,
+.tw-nav-icon.router-link-active .arrow {
   @apply text-white;
 }
 
-.tw-nav-icon.router-link-exact-active .round-icon {
+.tw-nav-icon.router-link-active .round-icon {
   @apply border-teal-400 bg-teal-400 text-teal-200;
 }
 
-.tw-nav-icon.router-link-exact-active .details {
+.tw-nav-icon.router-link-active .details {
   @apply text-teal-200 dark:text-teal-300;
 }
 

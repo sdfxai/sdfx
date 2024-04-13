@@ -1609,6 +1609,7 @@ export class SDFXApp extends EventTarget {
 
     api.addEventListener('executed', ({ detail }) => {
       const nodeId = detail.node
+      const node = this.graph.getNodeById(nodeId)
 
       const output = this.nodegraph.nodeOutputs[nodeId]
       if (detail.merge && output) {
@@ -1623,15 +1624,18 @@ export class SDFXApp extends EventTarget {
       } else {
         this.nodegraph.nodeOutputs[nodeId] = detail.output
       }
-      
+
       if (detail.output.images) {
         const nodeImages = detail.output.images
         const imageUrlArray = nodeImages.map(pathObj => this.getImageUrl(pathObj))
         this.graphStore.setCurrentPreviewImage(imageUrlArray[0])
         this.graphStore.setCurrentImageBatch(imageUrlArray)
+        
+        if (node && node.type==='SaveImage') {
+          this.modelStore.appendImageGallery(imageUrlArray)
+        }
       }
 
-      const node = this.graph.getNodeById(nodeId)
       if (node && node.onExecuted) {
         node.onExecuted(detail.output)
       }

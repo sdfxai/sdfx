@@ -6,8 +6,7 @@
       <main 
         class="w-full flex flex-1 flex-col bg-zinc-100 text-zinc-900 transition-all divide-y divide-zinc-200 dark:divide-black dark:bg-zinc-900 dark:text-zinc-100"
         :class="[
-          'pl-16',
-          { 'pr-80 lg:pr-80 xl:pr-90 2xl:pr-100 3xl:pr-110': status.isRightPaneVisible }
+          'pl-16'
         ]"
       >
         <article class="grow flex-col overflow-hidden bg-white dark:bg-zinc-950/50">

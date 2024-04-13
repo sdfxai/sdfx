@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router
 
 import Home from '@/views/Home.vue'
 import Layout from '@/layout/Layout.vue'
+import LayoutGraph from '@/layout/LayoutGraph.vue'
 import LayoutEditor from '@/layout/LayoutEditor.vue'
 
 const router = createRouter({
@@ -31,13 +32,13 @@ const router = createRouter({
 
     {
       path: '/gallery',
-      component: LayoutEditor,
+      component: LayoutGraph,
       meta: { needAuth: false, leftpane:false, rightpane:false },
       children: [
         {
           path: '/gallery',
           component: () => import('@/views/ImageGallery/Index.vue')
-        },
+        }
       ]
     },
 

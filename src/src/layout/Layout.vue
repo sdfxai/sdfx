@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col transition-colors">
     <AppBar v-if="isWindows"/>
-    <div class="flex" :class="[isWindows?'h-[calc(100vh-3.2rem)]':'h-screen']">
+    <Header class="pl-16"/>
+    <div class="flex" :class="[isWindows?'h-[calc(100vh-5.6rem)]':'h-screen']">
       <SideBar />
       <LeftPane class="overflow-hidden" />
       <main 
@@ -11,7 +12,6 @@
           { 'pr-80 lg:pr-80 xl:pr-90 2xl:pr-100 3xl:pr-110': status.isRightPaneVisible }
         ]"
       >
-        <Header />
         <article class="grow flex-col overflow-hidden bg-white dark:bg-zinc-950/50">
           <router-view />
         </article>
