@@ -107,9 +107,7 @@ app.registerExtension({
                 setColorAndBgColor.call(this, type)
               //}
             } else {
-              alert(
-                "Error: Set node input undefined. Most likely you're missing custom nodes",
-              )
+              console.warn("Error: Set node input undefined. Most likely you're missing custom nodes")
             }
           }
           if (link_info && app.graph && slotType == 2 && isChangeConnect) {
