@@ -77,10 +77,14 @@ if (window) {
     router.replace('/')
   } else {
     if (!mainStore.server.host) {
-      mainStore.setEndpointURLs({
-        http_endpoint: config.http_endpoint,
-        ws_endpoint: config.ws_endpoint
-      })
+      if (config.http_endpoint && config.ws_endpoint) {
+        mainStore.setEndpointURLs({
+          http_endpoint: config.http_endpoint,
+          ws_endpoint: config.ws_endpoint
+        })
+      } else {
+        alert('Missing .env config file in src folder. Please rename .env.example to .env')
+      }
     }
   }
 }
