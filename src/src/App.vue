@@ -50,7 +50,7 @@ const router = useRouter()
 const { toast } = useToast()
 
 const mainStore = useMainStore()
-const { status } = storeToRefs(mainStore)
+const { status, fontSize } = storeToRefs(mainStore)
 const loading = ref(false)
 
 if (window) {
@@ -100,6 +100,7 @@ const errorHandler = (e: any) => {
 }
 
 onMounted(()=>{
+  document.documentElement.style.fontSize = fontSize.value + 'em'
   sdfx.addEventListener('error', errorHandler)
 })
 

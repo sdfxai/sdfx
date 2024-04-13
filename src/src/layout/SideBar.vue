@@ -46,30 +46,52 @@
     </nav>
 
     <nav class="p-2.5 flex flex-col space-y-2.5">
-      <button @click="toggleDark()" class="tw-button gray w-full transparent text-red-500">
+      <button @click="toggleDark()" class="tw-button gray w-full transparent">
         <SunIcon class="tw-icon flex-shrink-0 h-5 w-5 dark:hidden"/>
         <MoonIcon class="tw-icon flex-shrink-0 hidden h-5 w-5 dark:block"/>
       </button>
+      <button @click="openSettingsModal()" class="tw-button gray w-full transparent">
+        <CogIcon class="tw-icon flex-shrink-0 h-6 w-6"/>
+      </button>
     </nav>
+
+    <teleport to="body">
+      <ModalSettings
+        :open="settingsModalVisible"
+        @close="closeSettingsModal"
+      />
+    </teleport>
   </nav>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useMainStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { useDark, useToggle } from '@vueuse/core'
-import { MoonIcon, SunIcon } from '@heroicons/vue/24/solid'
+import { MoonIcon, SunIcon, CogIcon } from '@heroicons/vue/24/solid'
+import ModalSettings from '@/components/ModalSettings.vue'
 
 const isDark = useDark()
 
 const isElectron = (window as any).electron ? true : false
 const isWindows = isElectron && (window as any).electron.isWindows
 
+const settingsModalVisible = ref(false)
+
 const toggleDark = useToggle(isDark)
 const mainStore = useMainStore()
 const { status } = storeToRefs(mainStore)
 
-const toggleLeftPane = function () {
+const toggleLeftPane = ()=>{
   mainStore.toggleLeftPane()
+}
+
+const openSettingsModal = ()=>{
+  settingsModalVisible.value = true
+}
+
+const closeSettingsModal = ()=>{
+  settingsModalVisible.value = false
 }
 </script>

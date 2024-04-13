@@ -1,5 +1,5 @@
 <template>
-  <section class="NavigatorPanel duration-300 ease-in-out flex-shrink-0" :class="status.isNavigatorPaneVisible?'h-[200px] lg:h-[231px] 2xl:h-[276px]':'h-10'">
+  <section class="NavigatorPanel duration-300 ease-in-out flex-shrink-0" :class="status.isNavigatorPaneVisible?'h-[300px] lg:h-[300px] 2xl:h-[355px]':'h-10'">
     <header @click="status.isNavigatorPaneVisible=!status.isNavigatorPaneVisible" class="header relative z-30 noselect flex items-center justify-between space-x-3 border-white dark:border-zinc-950 bg-zinc-50 dark:bg-zinc-950/50 px-3 text-sm h-10 flex-shrink-0">
       <button class="font-bold text-zinc-800 dark:text-zinc-600">Navigator</button>
       <button class="text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">

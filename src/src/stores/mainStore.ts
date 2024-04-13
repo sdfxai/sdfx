@@ -31,6 +31,7 @@ const defProgress = {
 export const useMainStore = defineStore('mainStore', {
   state: () => ({
     darkMode: useStorage('vueuse-color-scheme', 'dark'),
+    fontSize: useStorage('fontSize', 0.85),
     status: useStorage('status', defStatus()),
     progress: useStorage('progress', defProgress),
 
@@ -159,6 +160,10 @@ export const useMainStore = defineStore('mainStore', {
           job_no: 0,
         }
       }
+    },
+
+    setFontSize(size: number) {
+      this.fontSize = size
     },
 
     setSocketStatus(socketStatus: string) {
