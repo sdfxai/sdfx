@@ -191,6 +191,10 @@ export const SDFXAPI = {
       console.log('* execution cached')
     })
 
+    api.addEventListener('crystools.monitor', ({ detail }: any) => {
+      mainStore.updatePerformance(detail)
+    })
+
     api.addEventListener('b_preview', ({ detail }: any) => {
       const nodeId = graphStore.getRunningNodeId()
 

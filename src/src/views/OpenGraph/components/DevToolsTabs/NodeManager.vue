@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white dark:bg-zinc-900 border-b border-zinc-100 dark:border-zinc-950 flex items-center justify-between">
+  <div class="NodeManager bg-white dark:bg-zinc-900 border-b border-zinc-100 dark:border-zinc-950 flex items-center justify-between">
     <div class="flex-1 px-3 py-2 flex items-center space-x-3">
       <TWSearch v-model="query" class="w-64" />
 

@@ -1,7 +1,7 @@
 <template>
-  <nav ref="navRef" class="relative flex px-3 justify-between" :class="[xs?'h-12':'h-16']">
+  <nav ref="navRef" class="TWTabs relative flex px-3 justify-between" :class="[xs?'h-12':'h-16']">
     <button
-      v-for="(tab, idx) in tabs"
+      v-for="(tab, idx) in visibleTabs"
       :key="tab.id"
       ref="tabRefs"
       @click="setTab(idx)"
@@ -31,7 +31,7 @@
   </nav>
 </template>
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 // @ts-ignore
 import { PropType } from 'vue'
 
@@ -47,6 +47,8 @@ const props = defineProps({
 const navRef = ref<null | HTMLElement>(null)
 const tabRefs = ref<HTMLElement[]>([])
 const barPosition = reactive({ left: 0, width: 0 })
+
+const visibleTabs = computed(() => props.tabs.filter((tab: any) => tab.visible !== false))
 
 const setTab = (idx: number) => {
   const tab = props.tabs[idx]

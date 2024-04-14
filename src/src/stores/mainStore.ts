@@ -43,6 +43,26 @@ export const useMainStore = defineStore('mainStore', {
       host: null as string | null
     }),
 
+    performance: {
+      cpu_utilization: 0, // 14.8,
+      ram_total: 0, // 34190139392,
+      ram_used: 0, // 21221687296,
+      ram_used_percent: 0, // 62.1,
+      hdd_total: 0, // 999509569536,
+      hdd_used: 0, // 956266160128,
+      hdd_used_percent: 0, // 95.7,
+      device_type: 'cuda',
+      gpus: [
+        {
+          gpu_utilization: 0, // 29,
+          gpu_temperature: 0, // 50,
+          vram_total: 0, // 25757220864,
+          vram_used: 0, // 1419460608,
+          vram_used_percent: 0 // 5.510922997068881,
+        }
+      ]
+    },
+
     workspaces: useStorage('workspaces', {
       selectedId: 'main', /* current selected workspace id */
 
@@ -164,6 +184,10 @@ export const useMainStore = defineStore('mainStore', {
 
     setFontSize(size: number) {
       this.fontSize = size
+    },
+
+    updatePerformance(performanceObject: any) {
+      this.performance = performanceObject
     },
 
     setSocketStatus(socketStatus: string) {

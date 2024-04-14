@@ -205,6 +205,11 @@ export class SDFXAPI extends EventTarget {
               this.dispatchEvent(new CustomEvent('execution_cached', { detail: msg.data }))
               break
 
+            /* Crystools Monitor specific events */  
+            case 'crystools.monitor':
+              this.dispatchEvent(new CustomEvent('crystools.monitor', { detail: msg.data }))
+              break
+
             /* SDFX specific events */  
             case 'ping':
               this.dispatchEvent(new CustomEvent('ping'))

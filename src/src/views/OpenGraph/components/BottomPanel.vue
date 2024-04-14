@@ -16,10 +16,11 @@
         @click="status.isBottomPaneVisible=true"
         class="flex-shrink-0"
         :tabs="[
-          {id:'bookmarks', name:'Bookmarks'},
-          {id:'mapping', name:'Interface Map'},
-          {id:'meta', name:'App Meta'},
-          {id:'manager', name:'Manager'}
+          {id:'bookmarks', name:'Bookmarks', visible:true},
+          {id:'mapping', name:'Interface Map', visible:true},
+          {id:'meta', name:'App Meta', visible:true},
+          {id:'performance', name:'Performance', visible:true},
+          {id:'manager', name:'Manager', visible:true}
         ]"
       />
       <div class="flex space-x-3 pr-3">
@@ -51,6 +52,8 @@
 
       <AppDetails v-if="tab==='meta'"/>
 
+      <Performance v-if="tab==='performance'"/>
+
       <keep-alive>
         <NodeManager v-if="tab==='manager'"/>
       </keep-alive>
@@ -67,6 +70,7 @@ import TWTabs from '@/components/UI/TWTabs.vue'
 import Bookmarks from '@/views/OpenGraph/components/DevToolsTabs/Bookmarks.vue'
 import MappingInspector from '@/views/OpenGraph/components/DevToolsTabs/MappingInspector.vue'
 import AppDetails from '@/views/OpenGraph/components/DevToolsTabs/AppDetails.vue'
+import Performance from '@/views/OpenGraph/components/DevToolsTabs/Performance.vue'
 import NodeManager from '@/views/OpenGraph/components/DevToolsTabs/NodeManager.vue'
 // @ts-ignore
 import { sdfx } from '@/libs/sdfx/sdfx'
