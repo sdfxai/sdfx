@@ -41,13 +41,13 @@
 
     <!-- slider -->
     <div v-if="parameters.gallery.mode==='slider'" class="grow">
-      <ImageCarousel v-if="imageGallery.length>0" :images="imageGallery"/>
+      <ImageCarousel v-if="filteredImageGallery.length>0" :images="filteredImageGallery"/>
     </div>
 
     <!-- gallery -->
     <div ref="scrollable" class="h-[calc(100vh-140px)]">
       <ul ref="griddy" v-if="parameters.gallery.mode==='gallery'" class="grid grid-cols-8 gap-px">
-        <li v-for="(image, idx) in imageGallery" :key="`p${idx}`" class="bg-black">
+        <li v-for="(image, idx) in filteredImageGallery" :key="`p${idx}`" class="bg-black">
           <div class="">
             <imgz :src="`${image}`" class="object-contain" />
           </div>
@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useModelStore, storeToRefs } from '@/stores'
 import { useConfirm } from '@/components/UI/VueConfirm/VueConfirm'
 import { TrashIcon, SquaresPlusIcon, ViewColumnsIcon } from '@heroicons/vue/24/solid'
@@ -72,6 +72,11 @@ const { parameters, imageGallery } = storeToRefs(useModelStore())
 
 const griddy = ref<HTMLElement | null>(null)
 const scrollable = ref<any>(null)
+
+const filteredImageGallery = computed(()=> {
+  const reverse = imageGallery.value.reverse()
+  return reverse
+})
 
 const cleanImageGallery = async ()=>{
   const answer = await confirm({
