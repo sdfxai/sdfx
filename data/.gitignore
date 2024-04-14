@@ -12,15 +12,27 @@ lerna-debug.log*
 # files & folders for dev
 tmp
 
+
+media/gallery/*
+!media/gallery/gallery_goes_here
+
 media/input/*
 !media/input/example.png
 !media/input/input_goes_here
+
 media/output/*
 !media/output/output_goes_here
+
+media/templates/*
+!media/templates/templates_goes_here
+
+media/workflows/*
+!media/workflows/workflows_goes_here
+!media/workflows/37def4e6-011d-4858-8af3-3b5f85f6e7f6.json
+!media/workflows/dee07c30-51ce-4f53-8eb6-8c9a2bd5c0dc.json
+
 media/temp/*
 !media/temp/temp_goes_here
-media/gallery/*
-!media/gallery/gallery_goes_here
 
 models/**/*.safetensors
 models/**/*.pt
