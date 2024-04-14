@@ -36,21 +36,23 @@
   </div>
 
   <section class="NodeManager flex flex-1 overflow-hidden">
-    <ul class="p-3 flex-1 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 text-zinc-800 dark:text-zinc-100 text-lg font-semibold scrollable overflow-x-hidden overflow-y-auto">
+    <ul class="p-3 flex-1 text-zinc-800 dark:text-zinc-100 divide-y divide-zinc-950 text-lg font-semibold scrollable overflow-x-hidden overflow-y-auto">
       <li
         v-for="(node, idx) in filteredCustomNodeList"
         :key="idx"
         @click="selectCustomNode(node)"
-        class="border border-zinc-200 dark:border-zinc-800 px-3 py-2 h-20 rounded-md flex items-center justify-between"
+        class="px-3 py-2 flex items-center justify-between"
         :class="[
           selectedCustomNode?.id===node.id 
-            ? 'bg-teal-600 text-white' 
-            : (node.isInstalled ? 'bg-green-700 dark:bg-green-600/60 text-green-200 dark:text-green-200 cursor-pointer' : 'bg-zinc-200 dark:bg-zinc-800 cursor-pointer')
+            ? 'bg-green-800/50 text-white'
+            : (node.isInstalled ? 'bg-gradient-to-r from-zinc-100 to-green-500/60 dark:from-zinc-900 dark:to-green-900/50 text-green-200 dark:text-green-200 cursor-pointer' : 'bg-zinc-200 dark:bg-zinc-900 cursor-pointer')
         ]"
       >
-        <span class="whitespace-wrap text-sm">{{ node.title }}</span>
+        <div>
+          <h2 class="whitespace-wrap text-sm">{{ node.title }}</h2>
+        </div>
         <span>
-          <svg v-if="node.isInstalled" class="w-8 h-8 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg v-if="node.isInstalled" class="w-6 h-6 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </span>
