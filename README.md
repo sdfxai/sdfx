@@ -19,7 +19,7 @@ SDFX
 
 The ultimate no-code platform to build and share AI apps with beautiful UI.
 
-Join our [Discord Server](https://discord.gg/C3GVetwxnU) for latest news and updates.
+Join our [Discord Server](https://discord.gg/C3GVetwxnU) community for latest news, video tutorials and demo apps.
  
 -----------
 ![SDFX Screenshot](/docs/static/screen-sdfx.png)
