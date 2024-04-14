@@ -1,13 +1,13 @@
 <template>
   <div class="TWGauge text-3xl">
-    <div class="TWGauge__inner">
+    <div class="TWGauge__inner border-b-2 border-zinc-200 dark:border-zinc-950">
       <div class="TWGauge__fill" :style="{ transform: `rotate(${cssTransformRotateValue})` }"></div>
       <div class="TWGauge__border"></div>
       <div class="TWGauge__cover">
         {{ percentage.toFixed(2) }}%
       </div>
     </div>
-    <h2 class="text-center mt-3 font-semibold">{{ title }}</h2>
+    <h2 class="text-center mt-3 font-semibold text-zinc-600 dark:text-zinc-400">{{ title }}</h2>
   </div>
 </template>
 
