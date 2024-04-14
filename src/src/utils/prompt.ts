@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export const validatePromptBlock = (promptBlock: string) => {
   const pattern = /^\[\[(.+):([\d.]+)\]\::([\d.]+)\]$/
   const matches = promptBlock.match(pattern)
@@ -30,7 +32,7 @@ export const getBlocksFromPrompt = (prompt: string) => {
     const validatedBlock = validatePromptBlock(block)
     if (validatedBlock) {
       return {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         ...validatedBlock
       }
     }
