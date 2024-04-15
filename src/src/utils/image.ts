@@ -52,6 +52,7 @@ export const blobToFile = (blob: Blob, fileName: string) => {
 export const getImageDetails = async (src: string, useDataURL: boolean = false) => {
   return new Promise((resolve, reject) => {
     const img = new Image()
+    img.crossOrigin = 'anonymous'
     img.onload = () => {
       const width = img.width
       const height =  img.height
@@ -78,6 +79,7 @@ export const getImageDetails = async (src: string, useDataURL: boolean = false) 
 export const getImageSize = (src: string): Promise<ImageSize> => {
   return new Promise(resolve => {
     const img = document.createElement('img')
+    img.crossOrigin = 'anonymous'
     img.src = src
 
     img.onload = () => {

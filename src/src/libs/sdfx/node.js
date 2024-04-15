@@ -128,6 +128,7 @@ export const SDFXNode = {
               const img = new Image()
               img.onload = () => r(img)
               img.onerror = () => r(null)
+              img.crossOrigin = 'anonymous'
               img.src = src
             })
           }),

@@ -239,6 +239,7 @@ const getMaskDataURL = (maskURL: string) => {
     const backupCtx = backupCanvas.getContext('2d')
 
     const img = new Image()
+    img.crossOrigin = 'anonymous'
     img.onload = () => {
       backupCanvas.width = img.width
       backupCanvas.height = img.height

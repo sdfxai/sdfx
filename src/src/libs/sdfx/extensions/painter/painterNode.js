@@ -988,7 +988,7 @@ class Painter {
       subfolder = name.substring(0, folder_separator)
       name = name.substring(folder_separator + 1)
     }
-
+    img.crossOrigin = 'anonymous'
     img.src = api.apiURL(
       `/view?filename=${name}&type=input&subfolder=${subfolder}${sdfx.getPreviewFormatParam()}&${new Date().getTime()}`
     )

@@ -134,6 +134,7 @@ export const ClipSpace = {
       // deep-copy to cut link with clipspace
       if (copy['img_paste_mode'] === 'selected') {
         const img = new Image()
+        img.crossOrigin = 'anonymous'
         img.src = copy.imgs[copy.selectedIndex]
         node.imgs = [img]
         node.imageIndex = 0

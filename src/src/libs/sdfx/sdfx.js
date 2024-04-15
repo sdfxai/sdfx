@@ -1687,7 +1687,7 @@ export class SDFXApp extends EventTarget {
       node.imgs = [img]
       this.graph.setDirtyCanvas(true)
     }
-
+    img.crossOrigin = 'anonymous'
     img.src = this.getImageUrlFromFilepath(filepath, type)
     node.setSizeForImage?.()
   }
@@ -1772,6 +1772,7 @@ export class SDFXApp extends EventTarget {
 
     if (clipspace.imgs && clipspace['img_paste_mode'] === 'selected') {
       const img = new Image()
+      img.crossOrigin = 'anonymous'
       img.src = tempMaskImg
       node.imgs = [img]
       node.imageIndex = 0
