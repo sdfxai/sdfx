@@ -8,13 +8,13 @@
     </div>
 
     <div v-if="performance && performance.device_type==='cuda'" class="mt-8 grid grid-cols-6 xl:grid-cols-6 gap-8">
-      <TWGauge title="CPU" :percentage="performance.cpu_utilization" class="text-sm xl:text-base"/>
-      <TWGauge title="RAM" :percentage="performance.ram_used_percent" class="text-sm xl:text-base"/>
-      <TWGauge title="HDD" :percentage="performance.hdd_used_percent" class="text-sm xl:text-base"/>
+      <TWGauge title="CPU" unit="%" :value="performance.cpu_utilization" :decimal="2" class="text-sm xl:text-xl"/>
+      <TWGauge title="RAM" unit="%" :value="performance.ram_used_percent" :decimal="0" class="text-sm xl:text-xl"/>
+      <TWGauge title="HDD" unit="%" :value="performance.hdd_used_percent" :decimal="0" class="text-sm xl:text-xl"/>
 
-      <TWGauge title="GPU Utilisation" :percentage="performance.gpus[0]?.gpu_utilization" class="text-sm xl:text-xl"/>
-      <TWGauge title="GPU VRAM" :percentage="performance.gpus[0]?.vram_used_percent" class="text-sm xl:text-xl"/>
-      <TWGauge title="GPU Temp" :percentage="performance.gpus[0]?.gpu_temperature" class="text-sm xl:text-xl"/>
+      <TWGauge title="GPU Utilization" unit="%" :value="performance.gpus[0]?.gpu_utilization" :decimal="2" class="text-sm xl:text-xl"/>
+      <TWGauge title="GPU VRAM" unit="%" :value="performance.gpus[0]?.vram_used_percent" :decimal="2" class="text-sm xl:text-xl"/>
+      <TWGauge title="GPU Temp" unit="°C" :value="performance.gpus[0]?.gpu_temperature" :decimal="0" class="text-sm xl:text-xl"/>
     </div>
   </section>
 </template>

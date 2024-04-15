@@ -4,7 +4,7 @@
       <div class="TWGauge__fill" :style="{ transform: `rotate(${cssTransformRotateValue})` }"></div>
       <div class="TWGauge__border"></div>
       <div class="TWGauge__cover">
-        {{ percentage.toFixed(2) }}%
+        {{ value.toFixed(decimal) }}{{ unit }}
       </div>
     </div>
     <h2 class="text-center mt-3 font-semibold text-zinc-600 dark:text-zinc-400">{{ title }}</h2>
@@ -20,14 +20,24 @@ const props = defineProps({
     required: false,
     default: 'Untitled'
   },
-  percentage: {
+  value: {
     type: Number,
     required: true
+  },
+  decimal: {
+    type: Number,
+    required: false,
+    default: 0
+  },
+  unit: {
+    type: String,
+    required: false,
+    default: '%'
   }
 })
 
 const cssTransformRotateValue = computed(() => {
-  const percentageAsFraction = props.percentage / 100
+  const percentageAsFraction = props.value / 100
   const halfPercentage = percentageAsFraction / 2
 
   return `${halfPercentage}turn`
