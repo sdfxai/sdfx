@@ -1343,8 +1343,6 @@ export class SDFXApp extends EventTarget {
     const uid = droppedObject.uid
     if (!uid) return
 
-    console.log(this.canvas)
-
     switch (droppedObject.type) {
       case 'app':
         await this.loadAppId(uid)
@@ -2526,7 +2524,6 @@ export class SDFXApp extends EventTarget {
    * @param {File} file
    */
   async handleFile(file) {
-    console.log(file)
     const allowedImageTypes = ['image/png', 'image/webp', 'image/jpg', 'image/jpeg']
 
     this.deleteGraph()
@@ -2653,7 +2650,6 @@ export class SDFXApp extends EventTarget {
   }
 
   deleteGraph() {
-    console.log('DELETE GRAPH')
     if (this.groupNodes) {
       /* unregister group nodes */
       for (const g in this.groupNodes) {
