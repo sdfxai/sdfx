@@ -4,10 +4,20 @@
     :style="{ minHeight:`${8+(track.height)+8}px` }"
   >
     <dt class="w-64 px-4 pt-4 flex justify-between bg-zinc-950/60 text-white frounded-l-lg">
-      <div class="truncate">{{ track.name }}</div>
+      <div class="truncate">
+        <div>{{ track.name }}</div>
+        <button
+          @click="dblClickTrack"
+          v-wave
+          v-tippy="{ delay: [500, null], content: 'Add new subtrack' }"
+          class="w-6 h-6 rounded-md bg-zinc-200 dark:bg-zinc-900 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-600 dark:hover:text-white"
+        >
+          +
+        </button>
+      </div>
       <div class="flex space-x-1">
-        <button @click="soloToggle" class="text-xs font-semibold border rounded-md w-6 h-6 flex items-center justify-center" :class="[track.solo?'border-red-700 dark:border-red-600 bg-red-600 text-red-100':'border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-500']">S</button>
-        <button @click="muteToggle" class="text-xs font-semibold border rounded-md w-6 h-6 flex items-center justify-center" :class="[track.muted?'border-teal-700 dark:border-teal-800 bg-teal-800 text-teal-100':'border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-500']">M</button>
+        <button @click="soloToggle" v-tippy="{ delay: [500, null], content: 'Solo track' }" class="text-xs font-semibold border rounded-md w-6 h-6 flex items-center justify-center" :class="[track.solo?'border-red-700 dark:border-red-600 bg-red-600 text-red-100':'border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-500']">S</button>
+        <button @click="muteToggle" v-tippy="{ delay: [500, null], content: 'Mute track' }" class="text-xs font-semibold border rounded-md w-6 h-6 flex items-center justify-center" :class="[track.muted?'border-teal-700 dark:border-teal-800 bg-teal-800 text-teal-100':'border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-500']">M</button>
       </div>
     </dt>
 
