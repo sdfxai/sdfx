@@ -31,7 +31,6 @@ import { useMainStore, useGraphStore, storeToRefs } from '@/stores'
 // @ts-ignore
 import { sdfx } from '@/libs/sdfx/sdfx'
 import SpinLoader from '@/components/UI/SpinLoader.vue'
-import { cp } from 'original-fs'
 
 const { nodegraph } = storeToRefs(useGraphStore())
 const { status } = storeToRefs(useMainStore())
