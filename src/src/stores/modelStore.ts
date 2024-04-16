@@ -1,7 +1,6 @@
 import { api } from '@/apis'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { samplerList } from '@/stores/maps/samplers'
 
 const defPromptTracks = [
   {

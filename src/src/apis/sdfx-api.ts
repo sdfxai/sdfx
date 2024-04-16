@@ -319,6 +319,19 @@ export class SDFXAPI extends EventTarget {
   }
 
   /**
+   * Update a custom node
+   */
+  async updateCustomNode(node: any) {
+    try {
+      const resp: any = await this.restApi('POST', '/customnode/update', node)
+      return await resp.json()
+    } catch (e) {
+      console.error('Unable to update custom node.', node)
+      return null
+    }    
+  }
+
+  /**
    * Toggle enable / disable a custom node
    */
   async toggleCustomNode(node: any) {

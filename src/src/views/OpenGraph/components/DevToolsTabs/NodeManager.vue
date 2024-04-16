@@ -1,22 +1,32 @@
 <template>
   <div class="NodeManager bg-white dark:bg-zinc-900 border-b border-zinc-100 dark:border-zinc-950 flex items-center justify-between">
     <div class="flex-1 px-3 py-2 flex items-center space-x-3">
-      <TWSearch v-model="query" class="w-64" />
+      <TWSearch v-model="query" class="w-48" />
 
-      <div class="flex items-center space-x-8">
+      <div class="flex items-center space-x-6">
         <label class="ms-2 text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center space-x-2">
           <input type="radio" v-model="filterRadio" value="all" name="filter-radio" class="w-5 h-5 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600">
           <span>All</span>
         </label>
 
-        <label class="ms-2 text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center space-x-2">
-          <input type="radio" v-model="filterRadio" value="missing" name="filter-radio" class="w-5 h-5 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600">
-          <span>Missing nodes</span>
+        <label v-if="false" class="ms-2 text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center space-x-2">
+          <input type="radio" v-model="filterRadio" value="installed" name="filter-radio" class="w-5 h-5 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600">
+          <span>Installed</span>
         </label>
 
         <label class="ms-2 text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center space-x-2">
-          <input type="radio" v-model="filterRadio" value="installed" name="filter-radio" class="w-5 h-5 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600">
-          <span>Installed</span>
+          <input type="radio" v-model="filterRadio" value="missing" name="filter-radio" class="w-5 h-5 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600">
+          <span>Missing</span>
+        </label>
+
+        <label class="ms-2 text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center space-x-2">
+          <input type="radio" v-model="filterRadio" value="failed" name="filter-radio" class="w-5 h-5 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600">
+          <span>Failed</span>
+        </label>
+
+        <label class="ms-2 text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center space-x-2">
+          <input type="radio" v-model="filterRadio" value="disabled" name="filter-radio" class="w-5 h-5 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600">
+          <span>Disabled</span>
         </label>
       </div>
     </div>
@@ -27,9 +37,10 @@
       </h2>
       <div v-if="!loading" class="space-x-3 whitespace-nowrap">
         <button v-if="selectedCustomNode.isInstalled" class="tw-button transparent pink" @click="uninstallCustomNode(selectedCustomNode)">Uninstall</button>
-        <button v-if="selectedCustomNode.isInstalled && selectedCustomNode.isDisabled" class="tw-button" @click="enableCustomNode(selectedCustomNode)">Enable</button>
-        <button v-if="selectedCustomNode.isInstalled && !selectedCustomNode.isDisabled" class="tw-button pink" @click="disableCustomNode(selectedCustomNode)">Disable</button>
-        <button v-if="!selectedCustomNode.isInstalled" class="tw-button" @click="installCustomNode(selectedCustomNode)">Install</button>
+        <button v-if="selectedCustomNode.status === 'disabled'" class="tw-button" @click="enableCustomNode(selectedCustomNode)">Enable</button>
+        <button v-if="selectedCustomNode.status === 'installed'" class="tw-button pink" @click="disableCustomNode(selectedCustomNode)">Disable</button>
+        <button v-if="selectedCustomNode.status === 'available'" class="tw-button" @click="installCustomNode(selectedCustomNode)">Install</button>
+        <button v-if="selectedCustomNode.isInstalled" class="tw-button" @click="updateCustomNode(selectedCustomNode)">Update</button>
       </div>
       <SpinLoader v-if="loading" class="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
     </div>
@@ -76,8 +87,8 @@
           </dd>
         </dt>
         <dt class="py-2">
-          <dd class="text-zinc-600 font-semibold">Description</dd>
-          <dd class="text-zinc-800 dark:text-zinc-200 mt-1 text-lg">{{ selectedCustomNode?.description }}</dd>
+          <dd class="NodeDescription text-zinc-800 dark:text-zinc-200 mt-1 text-lg" v-html="selectedCustomNode?.description">
+          </dd>
         </dt>
       </div>
     </aside>
@@ -111,7 +122,13 @@ const filteredCustomNodeList = computed(() => {
   }
 
   if (filterRadio.value === 'installed') {
-    results = results.filter(n => n.isInstalled)
+    results = results.filter(n => n.status === 'installed')
+  }
+  if (filterRadio.value === 'disabled') {
+    results = results.filter(n => n.status === 'disabled')
+  }
+  if (filterRadio.value === 'failed') {
+    results = results.filter(n => n.status === 'failed')
   }
 
   return results
@@ -164,17 +181,6 @@ const filterMissingNodes = (data: any) => {
     }
   }
 
-  /*
-  const unresolved_nodes = await api.getUnresolvedNodesInComponent()
-  if (unresolved_nodes) {
-    for (let i in unresolved_nodes) {
-      let node_type = unresolved_nodes[i]
-      const url = name_to_url[node_type]
-      if (url) missing_nodes.add(url)
-    }
-  }
-  */
-
   return data.filter(
     (node: any) => node.files.some((file: any) => missing_nodes.has(file))
   )
@@ -191,6 +197,7 @@ const loadCustomNodes = async () => {
       return {
         id,
         ...n,
+        status: n.installed==='Fail' ? 'failed' : n.installed==='Disabled' ? 'disabled' : n.installed==='True' ? 'installed' : 'available',
         isInstalled: (n.installed==='True' || n.installed==='Disabled') ? true : false,
         isDisabled: n.installed==='Disabled' ? true : false
       }
@@ -224,6 +231,25 @@ const installCustomNode = async (node: any) => {
   if (answer) {
     loading.value = true
     const nodes = await api.installCustomNode(node)
+    loading.value = false
+    loadCustomNodes()
+  }
+}
+
+const updateCustomNode = async (node: any) => {
+  if (loading.value) return
+
+  const answer = await confirm({
+    message: "Update custom node?",
+    buttons: {
+      yes: 'Update',
+      no: 'Cancel'
+    }
+  })
+
+  if (answer) {
+    loading.value = true
+    const nodes = await api.updateCustomNode(node)
     loading.value = false
     loadCustomNodes()
   }
@@ -290,3 +316,13 @@ onMounted(() => {
   loadCustomNodes()
 })
 </script>
+
+<style>
+.NodeDescription p {
+  @apply my-3;
+}
+
+.NodeDescription .cm-warn-note {
+  @apply mt-4 bg-rose-900 text-white p-4;
+}
+</style>
