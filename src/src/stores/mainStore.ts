@@ -7,6 +7,7 @@ const defStatus = () => ({
   socket: 'disconnected', /* disconnected | connecting | connected | error */
   generation: 'idle', /* idle | started | generating */
   isSocketConnected: false,
+  isDependenciesModalVisible: false,
   isLeftPaneVisible: false,
   isRightPaneVisible: true,
   isBottomPaneVisible: false,
@@ -194,6 +195,10 @@ export const useMainStore = defineStore('mainStore', {
       this.status.socket = socketStatus
       this.status.isSocketConnected = socketStatus==='connected' ? true : false
       // console.log('#socket:', socketStatus)
+    },
+
+    setDependenciesModal(isVisible: boolean) {
+      this.status.isDependenciesModalVisible = isVisible
     },
 
     setLeftPane(isLeftPaneVisible: boolean) {

@@ -24,6 +24,10 @@
     <!-- do not remove this section, it's used to make some tailwind classes statically accessible to mapping components -->
   </section>
 
+  <teleport to="#modals">
+    <ModalDependencies :open="status.isDependenciesModalVisible" />
+  </teleport>
+
   <teleport to="#blockui">
     <BlockUI :open="status.spinning" />
   </teleport>
@@ -34,7 +38,7 @@ import config from '@/utils/app.config'
 import { SDFXAPI } from '@/api'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useMainStore, resetAllStores, storeToRefs } from '@/stores'
+import { useMainStore, useGraphStore, resetAllStores, storeToRefs } from '@/stores'
 import { VueConfirm } from '@/components/UI/VueConfirm/VueConfirm'
 import { VuePrompt } from '@/components/UI/VuePrompt/VuePrompt'
 import { VueToast, useToast } from '@/components/UI/VueToast/VueToast'
@@ -42,6 +46,7 @@ import { formatPromptError } from '@/utils/errors'
 
 // @ts-ignore
 import { sdfx } from '@/libs/sdfx/sdfx'
+import ModalDependencies from '@/components/ModalDependencies.vue'
 import BlockUI from '@/components/UI/BlockUI.vue'
 import Loader from '@/components/UI/Loader.vue'
 
@@ -50,48 +55,58 @@ const router = useRouter()
 const { toast } = useToast()
 
 const mainStore = useMainStore()
+const graphStore = useGraphStore()
 const { status, fontSize } = storeToRefs(mainStore)
 const loading = ref(false)
 
-if (window) {
-  const url = new URL(window.location.href)
-  const params = new URLSearchParams(url.search)
-  const host = params.get('host')
-  const ws = params.get('ws')
-  const clientId = params.get('clientId')!
-  const token = params.get('token')!
+const bootstrap = async () => {
+  if (window) {
+    const url = new URL(window.location.href)
+    const params = new URLSearchParams(url.search)
+    const host = params.get('host')
+    const ws = params.get('ws')
+    const clientId = params.get('clientId')!
+    const token = params.get('token')!
+    const workflow = params.get('workflow')!
 
-  if (token) {
-    mainStore.setAuthToken(token)
-  }
+    if (token) {
+      mainStore.setAuthToken(token)
+    }
 
-  if (clientId) {
-    mainStore.setClientId(clientId)
-  }
+    if (clientId) {
+      mainStore.setClientId(clientId)
+    }
 
-  if (host || ws) {
-    if (host) mainStore.setupHTTPHost(host)
-    if (ws)   mainStore.setupWSHost(ws)
-    resetAllStores()
-    console.log('[SDFX] reset stores', host, ws)
-    router.replace('/')
-  } else {
-    if (!mainStore.server.host) {
-      if (config.http_endpoint && config.ws_endpoint) {
-        mainStore.setEndpointURLs({
-          http_endpoint: config.http_endpoint,
-          ws_endpoint: config.ws_endpoint
-        })
-      } else {
-        alert('Missing .env config file in src folder. Please rename .env.example to .env')
+    if (workflow) {
+      await graphStore.loadExternalWorkflow(workflow)
+    }
+
+    if (host || ws) {
+      if (host) mainStore.setupHTTPHost(host)
+      if (ws)   mainStore.setupWSHost(ws)
+      resetAllStores()
+      console.log('[SDFX] reset stores', host, ws)
+      router.replace('/')
+    } else {
+      if (!mainStore.server.host) {
+        if (config.http_endpoint && config.ws_endpoint) {
+          mainStore.setEndpointURLs({
+            http_endpoint: config.http_endpoint,
+            ws_endpoint: config.ws_endpoint
+          })
+        } else {
+          alert('Missing .env config file in src folder. Please rename .env.example to .env')
+        }
       }
     }
   }
+
+  console.log('[SDFX] running on host', mainStore.server.host)
 }
 
-console.log('[SDFX] running on host', mainStore.server.host)
-
 const start = async () => {
+  await bootstrap()
+  
   SDFXAPI.connect()
   SDFXAPI.onready = async () => {
     console.log('[SDFX] connected')
@@ -103,7 +118,7 @@ const errorHandler = (e: any) => {
   toast.error(error, true)
 }
 
-onMounted(()=>{
+onMounted(async ()=>{
   document.documentElement.style.fontSize = fontSize.value + 'em'
   sdfx.addEventListener('error', errorHandler)
 })

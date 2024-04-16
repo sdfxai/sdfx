@@ -180,6 +180,11 @@ export const useGraphStore = defineStore('graphStore', {
       return w && w.defaults ? w.defaults : null
     },
 
+    async loadExternalWorkflow(workflowURL: string) {
+      const m = await fetch(workflowURL)
+      this.nodegraph.currentWorkflow = await m.json()
+    },
+
     getCurrentWorkflow() {
       return this.nodegraph.currentWorkflow
     },
