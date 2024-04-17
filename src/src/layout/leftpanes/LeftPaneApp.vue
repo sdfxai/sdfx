@@ -26,13 +26,11 @@ import AppList from '@/components/AppList.vue'
 import ScrollableSection from '@/components/ScrollableSection.vue'
 import DroppableSection from '@/components/DroppableSection.vue'
 
-const tab = ref('apps')
 const queryApp = ref('')
 const loadingModels = ref(false)
 
 const graphStore = useGraphStore()
 const modelStore = useModelStore()
-const { appList } = storeToRefs(graphStore)
 
 const handleFileDrop = async (file: File) => {
   const reader: FileReader = new FileReader()
@@ -45,8 +43,10 @@ const handleFileDrop = async (file: File) => {
 }
 
 onMounted(async ()=>{
+  /*
   loadingModels.value = true
   await modelStore.fetchModels()
   loadingModels.value = false
+  */
 })
 </script>
