@@ -28,7 +28,7 @@
         <AppMeta :workflow="workflow" class="p-8 space-x-8"/>
         <div class="flex items-center justify-end space-x-3 mt-2 p-4 border-t border-zinc-200 dark:border-gray-950">
           <button @click="close()" class="tw-button gray transparent">Cancel</button>
-          <button @click="submit()" class="tw-button pink">Install</button>
+          <button @click="submit()" class="tw-button">Load</button>
         </div>
       </div>
     </TWDragWin>
