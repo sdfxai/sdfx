@@ -218,6 +218,7 @@ class LGraph {
   name: any = null
   meta: any = {}
   type: any = null
+  dependencies: any[] = []
   mapping: any = {}
   defaults: any = {}
   globaltime = 0
@@ -330,6 +331,7 @@ class LGraph {
     this.name = null
     this.meta = {}
     this.type = null
+    this.dependencies = []
     this.mapping = {}
     this.defaults = {}
     //timing
@@ -1608,6 +1610,7 @@ class LGraph {
       name: this.name,
       meta: this.meta,
       type: this.type,
+      dependencies: this.dependencies,
       mapping: this.mapping,
       defaults: this.defaults,
       version: LiteGraph.VERSION,
@@ -1725,6 +1728,7 @@ class LGraph {
     this.name = data.name || null
     this.meta = data.meta || {}
     this.type = data.type || null
+    this.dependencies = data.dependencies || []
     this.mapping = data.mapping || {}
     this.defaults = data.defaults || {}
     this.extra = data.extra || {}
