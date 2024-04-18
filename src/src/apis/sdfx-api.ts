@@ -332,6 +332,19 @@ export class SDFXAPI extends EventTarget {
   }
 
   /**
+   * Fix a custom node
+   */
+  async fixCustomNode(node: any) {
+    try {
+      const resp: any = await this.restApi('POST', '/customnode/fix', node)
+      return await resp.json()
+    } catch (e) {
+      console.error('Unable to fix custom node.', node)
+      return null
+    }    
+  }
+
+  /**
    * Toggle enable / disable a custom node
    */
   async toggleCustomNode(node: any) {
@@ -340,6 +353,19 @@ export class SDFXAPI extends EventTarget {
       return await resp.json()
     } catch (e) {
       console.error('Unable to toggle custom node.', node)
+      return null
+    }    
+  }
+
+  /**
+   * Get current snapshot of custom nodes
+   */
+  async getCustomNodeSnapshot() {
+    try {
+      const resp: any = await this.restApi('GET', '/snapshot/get_current')
+      return await resp.json()
+    } catch (e) {
+      console.error('Unable to get snapshot of custom nodes.')
       return null
     }    
   }
