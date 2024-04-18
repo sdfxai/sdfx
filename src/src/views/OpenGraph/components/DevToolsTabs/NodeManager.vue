@@ -40,6 +40,8 @@
         <button v-if="selectedCustomNode.status === 'disabled'" class="tw-button" @click="enableCustomNode(selectedCustomNode)">Enable</button>
         <button v-if="selectedCustomNode.status === 'installed'" class="tw-button pink" @click="disableCustomNode(selectedCustomNode)">Disable</button>
         <button v-if="selectedCustomNode.status === 'available'" class="tw-button" @click="installCustomNode(selectedCustomNode)">Install</button>
+        <button v-if="selectedCustomNode.status === 'failed'" class="tw-button transparent pink" @click="uninstallCustomNode(selectedCustomNode)">Uninstall</button>
+        <button v-if="selectedCustomNode.status === 'failed'" class="tw-button" @click="fixCustomNode(selectedCustomNode)">Try to fix</button>
         <button v-if="selectedCustomNode.isInstalled" class="tw-button" @click="updateCustomNode(selectedCustomNode)">Update</button>
       </div>
       <SpinLoader v-if="loading" class="w-6 h-6 text-zinc-800 dark:text-zinc-200" />
@@ -217,6 +219,23 @@ const selectCustomNode = (node: any) => {
   selectedCustomNode.value = node
 }
 
+const askReboot = async () => {
+  const answer = await confirm({
+    title: "Danger Zone",
+    message: "Reboot server now?",
+    buttons: {
+      delete: 'Reboot',
+      no: 'No'
+    }
+  })
+
+  if (answer) {
+    loading.value = true
+    await api.reboot()
+    loading.value = false
+  }
+}
+
 const installCustomNode = async (node: any) => {
   if (loading.value) return
 
@@ -233,6 +252,27 @@ const installCustomNode = async (node: any) => {
     const nodes = await api.installCustomNode(node)
     loading.value = false
     loadCustomNodes()
+    askReboot()
+  }
+}
+
+const fixCustomNode = async (node: any) => {
+  if (loading.value) return
+
+  const answer = await confirm({
+    message: "Try to fix custom node?",
+    buttons: {
+      yes: 'Try to fix',
+      no: 'Cancel'
+    }
+  })
+
+  if (answer) {
+    loading.value = true
+    const nodes = await api.fixCustomNode(node)
+    loading.value = false
+    loadCustomNodes()
+    askReboot()
   }
 }
 
@@ -252,6 +292,7 @@ const updateCustomNode = async (node: any) => {
     const nodes = await api.updateCustomNode(node)
     loading.value = false
     loadCustomNodes()
+    askReboot()
   }
 }
 
@@ -309,6 +350,7 @@ const enableCustomNode = async (node: any) => {
     const nodes = await api.toggleCustomNode(node)
     loading.value = false
     loadCustomNodes()
+    askReboot()
   }
 }
 
