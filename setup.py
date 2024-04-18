@@ -19,18 +19,18 @@ def install_dependencies(gpu_type):
     # Clone SDFX custom_node if it doesn't exist
     sdfx_path = os.path.join(original_dir, "ComfyUI", "custom_nodes", "SDFXBridgeForComfyUI")
     if not os.path.exists(sdfx_path):
-        os.chdir("ComfyUI/custom_nodes")
+        os.chdir(os.path.join("ComfyUI", "custom_nodes"))
         sdfx_project_url = "https://github.com/sdfxai/SDFXBridgeForComfyUI"
         subprocess.run(["git", "clone", sdfx_project_url])
+        os.chdir(original_dir)
 
     # Clone ComfyUI-Manager custom_node if it doesn't exist
     comfyui_manager_path = os.path.join(original_dir, "ComfyUI", "custom_nodes", "ComfyUI-Manager")
     if not os.path.exists(comfyui_manager_path):
-        os.chdir("ComfyUI/custom_nodes")
+        os.chdir(os.path.join("ComfyUI", "custom_nodes"))
         sdfx_project_url = "https://github.com/ltdrdata/ComfyUI-Manager.git"
         subprocess.run(["git", "clone", sdfx_project_url])
-
-    os.chdir(original_dir)
+        os.chdir(original_dir)
 
     # Copy the example config file if it doesn't exist
     sdfx_config_example_path = os.path.join("ComfyUI", "custom_nodes", "SDFXBridgeForComfyUI", "sdfx.config.json.example")
@@ -87,7 +87,7 @@ def install_dependencies(gpu_type):
     
     # High-quality previews
     url = 'https://github.com/madebyollin/taesd/raw/main/taesd_decoder.pth'
-    destination_path = 'data/models/vae_approx/taesd_decoder.pth'
+    destination_path = os.path.join("data", "models", "vae_approx", "taesd_decoder.pth")
     os.makedirs(os.path.dirname(destination_path), exist_ok=True)
     try:
         urlretrieve(url, destination_path)
