@@ -49,6 +49,14 @@ export const SDFXAPI = {
 
     api.socket!.addEventListener('open', (e) => {
       mainStore.setSocketStatus('connected')
+
+      /* reboot SDFX app when the server has successfuly rebooted */
+      if (mainStore.isRebooting()) {
+        mainStore.setRebooting(false)
+        window.location.reload()
+        return
+      }
+
       status.value.ready = true
       this.onready(clientId)
     })
@@ -91,6 +99,14 @@ export const SDFXAPI = {
 
     api.addEventListener('reconnected', () => {
       mainStore.setSocketStatus('connected')
+
+      /* reboot SDFX app when the server has successfuly rebooted */
+      if (mainStore.isRebooting()) {
+        mainStore.setRebooting(false)
+        window.location.reload()
+        return
+      }
+
       status.value.ready = true
       this.onready(clientId)
     })

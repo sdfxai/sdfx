@@ -6,6 +6,7 @@ const defStatus = () => ({
   spinning: false,
   socket: 'disconnected', /* disconnected | connecting | connected | error */
   generation: 'idle', /* idle | started | generating */
+  rebooting: false,
   isSocketConnected: false,
   isDependenciesModalVisible: false,
   isLeftPaneVisible: false,
@@ -90,6 +91,14 @@ export const useMainStore = defineStore('mainStore', {
 
     spinner(bool: boolean) {
       this.status.spinning = bool
+    },
+
+    setRebooting(bool: boolean) {
+      this.status.rebooting = bool
+    },
+
+    isRebooting() {
+      return this.status.rebooting
     },
 
     setAuthToken(token: string) {
