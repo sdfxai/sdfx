@@ -54,6 +54,7 @@ export const useGraphStore = defineStore('graphStore', {
       registeredNodes: [] as any[],
       
       currentAppId: null as any,
+      currentDependencies: [] as any[],
       currentNodes: [] as any[],
       currentWorkflow: null as any,
       currentMapping: null as any,
@@ -193,12 +194,30 @@ export const useGraphStore = defineStore('graphStore', {
       return this.nodegraph.currentNodes.find((n: any) => n.id === nodeId)
     },
 
+    setCurrentDependencies(dependencies: any[]) {
+      if (dependencies && dependencies.length>=0) {
+        this.nodegraph.currentDependencies = dependencies
+      }
+    },
+
+    addCurrentDependenciesToWorkflow() {
+      const dependencies = this.nodegraph.currentDependencies
+      this.nodegraph.currentWorkflow.dependencies = dependencies.map((dep: any) => {
+        return {
+          type: dep.type,
+          name: dep.name,
+          url: dep.url
+        }
+      })
+    },
+
     setCurrentMapping(mapping: any) {
       this.nodegraph.currentMapping = mapping
     },
 
     clearCurrentWorkflow() {
       this.nodegraph.currentAppId = null
+      this.nodegraph.currentDependencies = []
       this.nodegraph.currentWorkflow = null
       this.nodegraph.currentNodes = []
       this.nodegraph.currentMapping = null

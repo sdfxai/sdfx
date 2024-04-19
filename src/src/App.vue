@@ -26,6 +26,7 @@
 
   <teleport to="#modals">
     <ModalDependencies :open="status.isDependenciesModalVisible" />
+    <ModalRebooting :open="status.socket!=='connected' && status.rebooting" />
   </teleport>
 
   <teleport to="#blockui">
@@ -47,6 +48,7 @@ import { formatPromptError } from '@/utils/errors'
 // @ts-ignore
 import { sdfx } from '@/libs/sdfx/sdfx'
 import ModalDependencies from '@/components/ModalDependencies.vue'
+import ModalRebooting from '@/components/ModalRebooting.vue'
 import BlockUI from '@/components/UI/BlockUI.vue'
 import Loader from '@/components/UI/Loader.vue'
 

@@ -283,7 +283,10 @@ export class SDFXAPI extends EventTarget {
    * Reboot server
    */
   async reboot() {
+    const mainStore = useMainStore()
+
     try {
+      mainStore.setRebooting(true)
       const resp: any = await this.restApi('GET', '/manager/reboot')
       return await resp.json()
     } catch (e) {
@@ -371,6 +374,33 @@ export class SDFXAPI extends EventTarget {
   }
 
   /* ------------------------------------------------- */
+
+  /**
+   * Check workflow dependencies
+   * @returns dependencies list
+   */
+   async checkDependencies(dependencies: any[]) {
+    try {
+      const resp: any = await this.restApi('POST', '/sdfx/dependencies/check', dependencies)
+      return await resp.json()
+    } catch (e) {
+      console.error('Unable to check dependencies.')
+      return null
+    }
+  }
+
+  /**
+   * Apply dependencies
+   */
+  async applyDependencies(dependencies: any[]) {
+    try {
+      const resp: any = await this.restApi('POST', '/sdfx/dependencies/apply', dependencies)
+      return await resp.json()
+    } catch (e) {
+      console.error('Unable to apply dependencies.')
+      return null
+    }    
+  }
 
   /**
    * Get checkpoint list

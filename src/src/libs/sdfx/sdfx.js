@@ -987,6 +987,23 @@ export class SDFXApp extends EventTarget {
   }
 
   /**
+   * Loads dependencies and sets it as the current dependencies in the graph store.
+   * Dispatches a 'loadedDependencies' event with the loaded dependencies as the event detail.
+   * @param {array} dependencies - The dependencies to be loaded.
+   */
+  loadDependencies(dependencies) {
+    if (!dependencies) {
+      log('No dependencies found')
+      return
+    }
+    this.graphStore.setCurrentDependencies(dependencies)
+
+    this.dispatchEvent(
+      new CustomEvent('loadedDependencies', { detail: dependencies })
+    )
+  }
+
+  /**
    * Loads a workflow into the SDFX application.
    * 
    * @param {Object} graphData - The data representing the workflow to be loaded.
@@ -1016,8 +1033,7 @@ export class SDFXApp extends EventTarget {
       return
     }
   }
-
-
+  
   /**
    * Loads the graph data and performs necessary operations.
    * @param {Object} graphData - The graph data to be loaded.
@@ -1051,6 +1067,7 @@ export class SDFXApp extends EventTarget {
     if (isSDFXGraph(graphData) && Object.keys(graphData.mapping).length>0) {
       log('sdfx: found SDFX UI map', graphData.mapping)
       this.loadMapping(graphData.mapping)
+      this.loadDependencies(graphData.dependencies || [])
     } else {
       this.graphStore.setCurrentMapping(null)
     }

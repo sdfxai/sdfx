@@ -100,7 +100,7 @@ const reboot = async () => {
 
   if (answer) {
     loading.value = true
-    const nodes = await api.reboot()
+    await api.reboot()
     loading.value = false
   }
 }
