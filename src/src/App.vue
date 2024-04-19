@@ -25,7 +25,7 @@
   </section>
 
   <teleport to="#modals">
-    <ModalDependencies :open="status.isDependenciesModalVisible" />
+    <ModalDependencies v-if="false" :open="status.isDependenciesModalVisible" />
     <ModalRebooting :open="status.socket!=='connected' && status.rebooting" />
   </teleport>
 
