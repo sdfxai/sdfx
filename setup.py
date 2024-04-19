@@ -95,6 +95,14 @@ def install_dependencies(gpu_type):
         print(f'Error downloading taesd_decoder.pth: {e}')
         exit()
 
+    url = "https://github.com/madebyollin/taesd/raw/main/taesdxl_decoder.pth"
+    destination_path = os.path.join("data", "models", "vae_approx", "taesdxl_decoder.pth")
+    try:
+        urlretrieve(url, destination_path)
+    except Exception as e:
+        print(f'Error downloading taesdxl_decoder.pth: {e}')
+        exit()
+
     # SDFX front dependencies
     subprocess.run(f"cd src && npm install", shell=True)
     if sys.platform == "win32":

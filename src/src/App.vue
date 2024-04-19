@@ -79,10 +79,6 @@ const bootstrap = async () => {
       mainStore.setClientId(clientId)
     }
 
-    if (workflow) {
-      await graphStore.loadExternalWorkflow(workflow)
-    }
-
     if (host || ws) {
       if (host) mainStore.setupHTTPHost(host)
       if (ws)   mainStore.setupWSHost(ws)
@@ -100,6 +96,9 @@ const bootstrap = async () => {
           alert('Missing .env config file in src folder. Please rename .env.example to .env')
         }
       }
+    }
+    if (workflow) {
+      await graphStore.loadExternalWorkflow(workflow)
     }
   }
 
