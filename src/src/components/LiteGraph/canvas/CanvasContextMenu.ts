@@ -178,7 +178,7 @@ export class CanvasContextMenu {
         },
         null,
         {
-          content: 'Title',
+          content: 'Rename Title',
           callback: CanvasContextMenu.onShowPropertyEditor,
         },
       ]
@@ -804,6 +804,8 @@ export class CanvasContextMenu {
     }
 
     function setValue(value: any) {
+      node.graph.onBeforeChange()
+
       if (item.type == 'Number') {
         value = Number(value)
       } else if (item.type == 'Boolean') {
@@ -813,7 +815,9 @@ export class CanvasContextMenu {
       if (dialog.parentNode) {
         dialog.parentNode.removeChild(dialog)
       }
+
       node.setDirtyCanvas(true, true)
+      node.graph.onAfterChange()
     }
   }
 }
