@@ -354,7 +354,7 @@ export const ComfyWidgets = {
     const widgetType = inputData[1]['display'] === 'slider' ? 'slider' : 'number'
     const precision = 2
     const enable_rounding = true
-
+    if (precision == 0) precision = undefined
     const { val, config } = getNumberDefaults(inputData, 0.5, precision, enable_rounding)
 
     return {
@@ -364,7 +364,14 @@ export const ComfyWidgets = {
         val,
         function (v) {
           const s = config.round
-          this.value = s ? Math.round(v/s) * s : v
+
+          if (s) {
+            this.value = Math.round((v + Number.EPSILON)/s)*s
+            if (this.value > config.max) this.value = config.max
+            if (this.value < config.min) this.value = config.min
+          } else {
+            this.value = v
+          }
         },
         config
       )
