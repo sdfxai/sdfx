@@ -217,6 +217,9 @@ export class SDFXAPI extends EventTarget {
             case 'ready':
               this.dispatchEvent(new CustomEvent('ready', { detail: msg.data }))
               break
+            case 'users-count':
+              this.dispatchEvent(new CustomEvent('users-count', { detail: msg.data }))
+              break
             case 'sdfx-server-status':
               this.dispatchEvent(new CustomEvent('sdfx-server-status', { detail: msg.data }))
               break
