@@ -31,6 +31,12 @@ const router = createRouter({
     },
 
     {
+      path: '/embed',
+      component: () => import('@/views/Embed.vue'),
+      meta: { needAuth: false },
+    },
+
+    {
       path: '/gallery',
       component: LayoutGraph,
       meta: { needAuth: false, leftpane:false, rightpane:false },

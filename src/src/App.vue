@@ -91,10 +91,16 @@ const bootstrap = async () => {
       }
 
       console.log('Refreshing ...')
-      router.replace('/')
+
+      if (url.pathname?.indexOf('/embed')>-1) {
+        router.replace('/embed')
+      } else {
+        router.replace('/')
+      }
+
       setTimeout(() => {
         window.location.reload()
-      }, 50) 
+      }, 16)
     } else {
       if (!mainStore.server.host) {
         if (config.http_endpoint && config.ws_endpoint) {
