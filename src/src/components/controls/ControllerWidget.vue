@@ -1,5 +1,5 @@
 <template>
-  <dd v-if="uid" @dblclick="dblclick" class="ControllerWidget flex items-center justify-between space-x-4">
+  <dd v-if="uid" @dblclick="dblclick" :class="[expand?'h-full':null]" class="ControllerWidget flex items-center justify-between space-x-4">
     <slot :scope="{
       id,
       uid,
@@ -39,6 +39,7 @@ const props = defineProps({
   label: { type: String, required: false, default: null },
   options: { type: Array as PropType<any[]>, required: false, default:null },
   target: { type: Object, required: true },
+  expand: { type: Boolean, required: false, default: false },
   showLabel: { type: Boolean, required: false, default: true },
   disabled: { type: Boolean, required: false, default: false },
   loading: { type: Boolean, required: false, default: false },

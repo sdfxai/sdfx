@@ -60,6 +60,7 @@ const props = defineProps({
   component: { type: String as PropType<ComponentType>, required: true },
   defaults: { type: Object, required: false, default: null },
   target: { type: Object, required: true },
+  expand: { type: Boolean, required: false, default: false },
   showLabel: { type: Boolean, required: false, default: true },
   loading: { type: Boolean, required: false, default: false },
   disabled: { type: Boolean, required: false, default: false }

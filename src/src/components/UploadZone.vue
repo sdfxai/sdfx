@@ -71,6 +71,7 @@ export default defineComponent({
     zoomable: { type: Boolean, required: false, default: true },
     clickToUpload: { type: Boolean, required: false, default: true },
     verbose: { type: Boolean, required: false, default: true },
+    flex: { type: Boolean, required: false, default: false },
     rounded: { type: Boolean, required: false, default: false },
     noise: { type: Number, required: false, default: 0.0 },
     showNoise: { type: Boolean, required: false, default: false },

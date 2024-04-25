@@ -1,5 +1,5 @@
 <template>
-  <section :class="[rounded?'rounded-lg':null, border?'border border-zinc-200 dark:border-zinc-800':null]" class="box w-full noselect flex flex-col">
+  <section class="Box w-full noselect flex flex-col" :class="[expand?'h-full':null, rounded?'rounded-lg':null, border?'border border-zinc-200 dark:border-zinc-800':null]">
     <h2 v-if="title" class="px-4 py-2.5 text-zinc-900 dark:text-white flex items-center justify-between border-b dark:border-zinc-800 text-sm font-semibold bg-white dark:bg-zinc-900/80 rounded-t-lg">
       <span>{{ title }}</span>
       <span>
@@ -33,6 +33,7 @@ const props = defineProps({
   rounded: { type: Boolean, required: false, default:true },
   border: { type: Boolean, required: false, default:true },
   isScrollable: { type: Boolean, required: false, default:true },
+  expand: { type: Boolean, required: false, default:false },
   showAdvanced: { type: Boolean, required: false, default:false },
   flexible: { type: Boolean, required: false, default:true },
 })

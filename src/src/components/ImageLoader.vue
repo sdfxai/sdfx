@@ -1,6 +1,6 @@
 <template>
-  <article>
-    <div @click="imageDrawerOpen=!imageDrawerOpen" class="aspect-w-1 aspect-h-1 cursor-pointer bg-black rounded-lg border border-zinc-300 dark:border-zinc-700/80">
+  <article class="ImageLoader" :class="[expand?'h-full flex flex-col':null]">
+    <div @click="imageDrawerOpen=!imageDrawerOpen" class="aspect-w-1 aspect-h-1 cursor-pointer bg-black rounded-lg border border-zinc-300 dark:border-zinc-700/80" :class="[expand?'flex-1':null]">
       <UploadZone
         class="flex flex-col"
         label="Source"
@@ -64,6 +64,7 @@ const props = defineProps({
   imageType: { type: String, required: false, default: 'input' },
   previewMode: { type: String, required: false, default: null },
   modelValue: { type: String, required: false, default: null },
+  expand: { type: Boolean, required: false, default: false },
   disabled: { type: Boolean, required: false, default: false }
 })
 
