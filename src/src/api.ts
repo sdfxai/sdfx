@@ -39,6 +39,7 @@ export const SDFXAPI = {
 
     const token = mainStore.getAuthToken()
     const clientId = mainStore.getClientId() || uuidv4()
+
     server.value.clientId = clientId
     status.value.ready = false
 
