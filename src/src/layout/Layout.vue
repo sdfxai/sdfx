@@ -2,7 +2,7 @@
   <div class="flex flex-col transition-colors">
     <AppBar v-if="isWindows"/>
     <Header class="pl-16"/>
-    <div class="flex" :class="[isWindows?'h-[calc(100vh-5.6rem)]':'h-[calc(100vh-2.6rem)]']">
+    <div class="flex" :class="[isWindows?'h-[calc(100vh-5.6rem)]':'h-[calc(100vh-2.56rem)]']">
       <SideBar />
       <LeftPane class="overflow-hidden" />
       <main 

@@ -1,5 +1,5 @@
 <template>
-  <div class="Pane flex-1 max-h-full flex flex-col justify-between divide-y divide-zinc-200 dark:divide-black bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-100" :class="[isWindows?'h-[calc(100vh-5.6rem)]':'h-[calc(100vh-2.6rem)]', position==='right'?'border-l border-zinc-200 dark:border-black':null]">
+  <div class="Pane flex-1 max-h-full flex flex-col justify-between divide-y divide-zinc-200 dark:divide-black bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-100" :class="[isWindows?'h-[calc(100vh-5.6rem)]':'h-[calc(100vh-2.58rem)]', position==='right'?'border-l border-zinc-200 dark:border-black':null]">
     <slot name="head"/>
     <slot name="body"/>
     <slot name="foot"/>
