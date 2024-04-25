@@ -84,7 +84,17 @@ const bootstrap = async () => {
       if (ws)   mainStore.setupWSHost(ws)
       resetAllStores()
       console.log('[SDFX] reset stores', host, ws)
+
+      if (workflow) {
+        console.log('Found workflow in URL, loading...')
+        await graphStore.loadExternalWorkflow(workflow)
+      }
+
+      console.log('Refreshing ...')
       router.replace('/')
+      setTimeout(() => {
+        window.location.reload()
+      }, 50) 
     } else {
       if (!mainStore.server.host) {
         if (config.http_endpoint && config.ws_endpoint) {
@@ -97,6 +107,7 @@ const bootstrap = async () => {
         }
       }
     }
+
     if (workflow) {
       await graphStore.loadExternalWorkflow(workflow)
     }
