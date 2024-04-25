@@ -136,7 +136,7 @@ export const useGraphStore = defineStore('graphStore', {
 
     async getAppList() {
       const list = await api.getWorkflowList()
-      this.appList = list ? list : []
+      this.appList = list && Array.isArray(list) ? list : []
       return this.appList
     },
 
