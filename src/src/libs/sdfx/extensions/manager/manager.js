@@ -2,13 +2,13 @@ import { api } from '@/apis'
 import { sdfx as app } from '@/libs/sdfx/sdfx.js'
 import { LiteGraph } from '@/components/LiteGraph/'
 
-let nicknames
+let nicknames = []
 
 async function fetchNicknames() {
   const mappings = await api.getCustomNodeMapping()
   if (mappings && mappings.error) {
-    console.error('Failed to fetch custom node mappings')
-    return
+    console.warn('Failed to fetch custom node mappings')
+    return []
   }
 
   let result = {}
