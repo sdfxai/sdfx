@@ -64,6 +64,33 @@ export class SDFXAPI extends EventTarget {
   }
 
   /**
+   * Fetch image from the API
+   * @param route 
+   * @param options 
+   * @returns 
+   */
+  async fetchImage(url: string) {
+    let options = {}
+
+    try {
+      if (this.token) {
+        options = {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        }
+      }
+
+      const response = await fetch(url, options)
+      const blob = await response.blob()
+      return URL.createObjectURL(blob)
+    } catch (e) {
+      console.error(e)
+      return null
+    }
+  }
+
+  /**
    * Sends a request to the API
    * @param {*} method The method (POST, PUT, DELETE, etc)
    * @param {*} body Optional PUT data
