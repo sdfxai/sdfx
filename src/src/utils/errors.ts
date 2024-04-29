@@ -7,14 +7,18 @@ export const formatPromptError = (error: any) => {
     return error.toString()
   } else if (error.response) {
     let message = error.response?.error?.message
-    if (error.response.error.details) message += ': ' + error.response.error.details
-    for (const [nodeID, nodeError] of Object.entries(error.response.node_errors)) {
-      const nodeErrorTyped: any = nodeError
-      message += '\n' + nodeErrorTyped.class_type + ':'
-      for (const errorReason of nodeErrorTyped.errors) {
-        message += '\n    - ' + errorReason.message + ': ' + errorReason.details
+    if (error.response?.error?.details) message += ': ' + error.response.error.details
+
+    if (error.response?.node_errors) {
+      for (const [nodeID, nodeError] of Object.entries(error.response.node_errors)) {
+        const nodeErrorTyped: any = nodeError
+        message += '\n' + nodeErrorTyped.class_type + ':'
+        for (const errorReason of nodeErrorTyped.errors) {
+          message += '\n    - ' + errorReason.message + ': ' + errorReason.details
+        }
       }
     }
+
     return message
   }
   return '(unknown error)'
