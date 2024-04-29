@@ -7,6 +7,7 @@ const defStatus = () => ({
   socket: 'disconnected', /* disconnected | connecting | connected | error */
   generation: 'idle', /* idle | started | generating */
   rebooting: false,
+  isEmbed: false,
   isSocketConnected: false,
   isDependenciesModalVisible: false,
   isLeftPaneVisible: false,
@@ -91,6 +92,10 @@ export const useMainStore = defineStore('mainStore', {
 
     spinner(bool: boolean) {
       this.status.spinning = bool
+    },
+
+    setEmbed(bool: boolean) {
+      this.status.isEmbed = bool
     },
 
     setRebooting(bool: boolean) {

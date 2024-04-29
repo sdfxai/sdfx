@@ -27,7 +27,8 @@ import RightPane from '@/layout/RightPane.vue'
 import AppBar from '@/layout/AppBar.vue'
 import SideBar from '@/layout/SideBar.vue'
 
-const { status } = storeToRefs(useMainStore())
+const mainStore = useMainStore()
+const { status } = storeToRefs(mainStore)
 
 const isElectron = (window as any).electron ? true : false
 const isWindows = isElectron && (window as any).electron.isWindows

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 
-import Home from '@/views/Home.vue'
 import Layout from '@/layout/Layout.vue'
+import LayoutEmbed from '@/layout/LayoutEmbed.vue'
 import LayoutGraph from '@/layout/LayoutGraph.vue'
 import LayoutEditor from '@/layout/LayoutEditor.vue'
 
@@ -15,25 +15,33 @@ const router = createRouter({
       meta: { needAuth: false },
       children: [
         {
-          path: '/',
+          path: '',
           name: 'appview',
           meta: { leftpane:'app', rightpane:'app' },
-          component: Home
+          component: () => import('@/views/Home.vue')
         },
 
         {
-          path: '/graph',
+          path: 'graph',
           name: 'graphview',
           meta: { leftpane:'graph', rightpane:'graph' },
-          component: Home
+          component: () => import('@/views/Home.vue')
         }
       ]
     },
 
     {
       path: '/embed',
-      component: () => import('@/views/Embed.vue'),
+      component: LayoutEmbed,
       meta: { needAuth: false },
+      children: [
+        {
+          path: '',
+          name: 'embedview',
+          meta: { leftpane:'app', rightpane:'app' },
+          component: () => import('@/views/Embed.vue')
+        }
+      ]
     },
 
     {
@@ -42,7 +50,7 @@ const router = createRouter({
       meta: { needAuth: false, leftpane:false, rightpane:false },
       children: [
         {
-          path: '/gallery',
+          path: '',
           component: () => import('@/views/ImageGallery/Index.vue')
         }
       ]
@@ -54,9 +62,9 @@ const router = createRouter({
       meta: { needAuth: false, leftpane:false, rightpane:false },
       children: [
         {
-          path: '/editor',
+          path: '',
           component: () => import('@/views/ImageEditor/Index.vue')
-        },
+        }
       ]
     },
   ],

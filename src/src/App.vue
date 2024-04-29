@@ -87,7 +87,10 @@ const bootstrap = async () => {
 
       if (workflow) {
         console.log('Found workflow in URL, loading...')
+        mainStore.setEmbed(true)
+        mainStore.spinner(true)
         await graphStore.loadExternalWorkflow(workflow)
+        mainStore.spinner(false)
       }
 
       console.log('Refreshing ...')
@@ -115,7 +118,10 @@ const bootstrap = async () => {
     }
 
     if (workflow) {
+      mainStore.setEmbed(true)
+      mainStore.spinner(true)
       await graphStore.loadExternalWorkflow(workflow)
+      mainStore.spinner(false)
     }
   }
 

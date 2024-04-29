@@ -16,7 +16,7 @@ import { useMainStore, useModelStore, useGraphStore, storeToRefs } from '@/store
 import { v4 as uuidv4 } from 'uuid'
 // import { StateManager } from './stateManager.js'
 
-const debug = false
+const debug = true
 const log = debug ? console.log : (...args)=>{}
 
 const isEmptyObject = (obj) => (Object.keys(obj).length === 0 || !obj)
@@ -340,8 +340,11 @@ export class SDFXApp extends EventTarget {
 
     try {
       log('sdfx: fetching node definitions')
+      this.mainStore.spinner(true)
       nodeDefs = await api.getNodeDefs()
+      this.mainStore.spinner(false)
       this.graphStore.setNodeDefs(nodeDefs)
+      log('sdfx: found node definitions', nodeDefs)
       return nodeDefs
     } catch (e) {
       console.error('sdfx: unable to fetch node definitions')
@@ -679,7 +682,7 @@ export class SDFXApp extends EventTarget {
         for (let widget of node.widgets) {
           if (node.type === 'KSampler' || node.type === 'KSamplerAdvanced') {
             if (widget.name === 'sampler_name') {
-              if (widget.value && widget.value.startsWith('sample_')) {
+              if (widget.value && String(widget.value).startsWith('sample_')) {
                 widget.value = widget.value.slice(7)
               }
             }
@@ -1921,6 +1924,8 @@ export class SDFXApp extends EventTarget {
     if (this.extensionsLoaded) return
     log('sdfx: loading extensions')
 
+    const { status } = storeToRefs(this.mainStore)
+
     /*
     if (this.availableExtensions.length<=0) {
       log('----- no available extentions')
@@ -1955,14 +1960,16 @@ export class SDFXApp extends EventTarget {
     await import('@/libs/sdfx/extensions/core/saveImageExtraOutput.js')
     // @ts-ignore
     await import('@/libs/sdfx/templateManager.ts')
-
     // @ts-ignore
     await import('@/libs/sdfx/extensions/vhs/vhs.js')
     // @ts-ignore
-    await import('@/libs/sdfx/extensions/manager/manager.js')
-    // @ts-ignore
     await import('@/libs/sdfx/extensions/kj/setgetnodes.js')
-    
+
+    if (!status.value?.isEmbed) {
+      // @ts-ignore
+      await import('@/libs/sdfx/extensions/manager/manager.js')
+    }
+
     // @ts-ignore
     // await import('@/libs/sdfx/extensions/painter/painterNode.js')
 
