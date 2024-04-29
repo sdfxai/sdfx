@@ -17,7 +17,7 @@
     </button>
 
     <!-- next (interrupt and regenerate button) -->
-    <button v-tippy="{ delay: [500, null], content: 'Restart button (same as Stop + Start). Use this while generating to quickly restart or test another seed.' }" @click="next()" v-wave :disabled="!status.ready || !nodegraph.currentWorkflow || status.generation==='interrupting'" class="tw-button gray transparent sm">
+    <button v-if="hasNextButton" v-tippy="{ delay: [500, null], content: 'Restart button (same as Stop + Start). Use this while generating to quickly restart or test another seed.' }" @click="next()" v-wave :disabled="!status.ready || !nodegraph.currentWorkflow || status.generation==='interrupting'" class="tw-button gray transparent sm">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path>
       </svg>
@@ -31,6 +31,10 @@ import { useMainStore, useGraphStore, storeToRefs } from '@/stores'
 // @ts-ignore
 import { sdfx } from '@/libs/sdfx/sdfx'
 import SpinLoader from '@/components/UI/SpinLoader.vue'
+
+const props = defineProps({
+  hasNextButton: { type: Boolean, required: false, default: true }
+})
 
 const { nodegraph } = storeToRefs(useGraphStore())
 const { status } = storeToRefs(useMainStore())
