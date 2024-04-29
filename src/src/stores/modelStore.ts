@@ -161,7 +161,7 @@ export const useModelStore = defineStore('modelStore', {
     async fetchModels() {
       const models: any[] = await api.getModels()
 
-      if (!models) {
+      if (!models || !models.length) {
         this.parameters.SDFXCompatibleBackend = false
         return
       }
