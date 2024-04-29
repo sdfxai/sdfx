@@ -12,6 +12,7 @@
     </button>
 
     <SlideDrawer
+      v-if="currentCheckpoint"
       title="Checkpoint Manager"
       :open="checkpointDrawerOpen"
       :showFooter="false"
