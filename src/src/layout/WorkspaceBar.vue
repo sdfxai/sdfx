@@ -36,8 +36,8 @@
       </button>
     </dt>
     <div class="flex items-center justify-between space-x-3">
-      <ButtonGenerate/>
-      <ButtonActionsMenu/>
+      <ButtonGenerate :hasNextButton="hasNextButton"/>
+      <ButtonActionsMenu v-if="hasMenuButton"/>
     </div>
   </nav>
 </template>
@@ -50,6 +50,11 @@ import { useRoute } from 'vue-router'
 import { useMainStore, useGraphStore, storeToRefs } from '@/stores'
 import ButtonGenerate from '@/components/boxes/ButtonGenerate.vue'
 import ButtonActionsMenu from '@/components/boxes/ButtonActionsMenu.vue'
+
+const props = defineProps({
+  hasMenuButton: { type: Boolean, required: false, default: true },
+  hasNextButton: { type: Boolean, required: false, default: true }
+})
 
 const route = useRoute()
 const graphStore = useGraphStore()
