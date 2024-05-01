@@ -1093,7 +1093,7 @@ export class GroupNodeHandler {
           for (const [_, , targetNodeId, targetSlot] of rerouteLinks['0']) {
             const node = this.innerNodes[targetNodeId]
             const input = node.inputs?.[targetSlot]
-            if (input.widget) {
+            if (input?.widget) {
               const widget = node.widgets?.find(
                 (w) => w.name === input.widget.name,
               )
