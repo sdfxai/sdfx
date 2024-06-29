@@ -576,7 +576,7 @@ export class SDFXApp extends EventTarget {
       const node = this.graph.getNodeById(nodeId)
 
       if (node) {
-        this.updateNodeWidgets(node, nodeId, widgetIdxs, values)
+        this.updateNodeWidgets(node, widgetIdxs, values)
       }
     }
 
@@ -605,10 +605,55 @@ export class SDFXApp extends EventTarget {
     }
   }
 
-  updateNodeWidgets(node, nodeId, widgetIdxs, values) {
+  /**
+   * Update a widget on a LiteGraph node by its widget name
+   * @param {*} node 
+   * @param {*} widgetName 
+   * @param {*} value 
+   */
+  updateNodeWidgetName(node, widgetName, value) {
+    this.preventWidgetUpdate = true
+
+    if (node && node.widgets) {
+      const widgetIdx = node.widgets.findIndex(w => w.name === widgetName)
+
+      if (widgetIdx > -1) {
+        log('sdfx: update widget', widgetName, 'on node', node.id, 'with value', value)
+
+        const widget = node.widgets[widgetIdx]
+        if (widget) {
+          widget.value = value
+        }
+
+        if (node.widgets_values && node.widgets_values[widgetIdx]) {
+          node.widgets_values[widgetIdx] = value
+        }
+
+        if (widget.type==='combo' && widget.name==='image') {
+          this.updateNodeImage(node, value, 'input')
+        }
+      }
+    } else {
+      console.error('sdfx: unable to update widget', widgetName, 'on node', node.id)
+    }
+
+    this.preventWidgetUpdate = false
+    this.graph.setDirtyCanvas(true)
+  }
+
+  /**
+   * Update a widget on a LiteGraph node
+   * @param {*} node 
+   * @param {*} nodeId 
+   * @param {*} widgetIdxs 
+   * @param {*} values 
+   * @returns 
+   */
+  updateNodeWidgets(node, widgetIdxs, values) {
     if (!this.graph) return
 
-    if (node && nodeId && node.widgets) {
+    if (node && node.id && node.widgets) {
+      const nodeId = node.id
       this.preventWidgetUpdate = true
 
       log(`sdfx: update node#${nodeId} widgets [${widgetIdxs}] with values [${values}]`)
@@ -1908,6 +1953,7 @@ export class SDFXApp extends EventTarget {
 
   animateToNode (node, zoom=0.70) {
     if (!this.canvas) return
+    this.graph.setDirtyCanvas(true)
     this.canvas.animateToNode(node, 350, zoom, 'easeInOutQuad')
   }
 
