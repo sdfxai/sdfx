@@ -72,3 +72,49 @@ export const getTracksFromPromptBlocks = (promptBlocks: string[]) => {
   return tracks
 }
 
+export const getPromptFromTimeline = (tracks: any[]) => {
+  let prompt: any[] = []
+
+  tracks.forEach(track => {
+    if (!track.muted) {
+      const blocks = track.blocks
+      blocks.forEach((e: any) => {
+        prompt.push(`[[${e.prompt}:${e.start.toFixed(5)}]::${e.end.toFixed(3)}]`)
+      })
+    }
+  })
+
+  return prompt.join(', with ')
+}
+
+
+/**
+ * Extract text from a track (e.g. '[[UHD --ar 9:16 --chaos 1. 7 --style raw:0.00000]::1.000]')
+ * @param textTrack 
+ */
+const extractTextFromTrack = (textTrack: string) => {
+  // Étape 1 : Virer les brackets extérieurs
+  let step1 = textTrack.replace(/^\[\[|\]\]$/g, '')
+
+  // Étape 2 : Virer le bracket de gauche et de droite, ainsi que tout ce qu'il y a après le bracket de droite
+  let step2 = step1.replace(/^\[|\].*$/g, '')
+
+  // Étape 3 : Virer tout ce qui ce trouve après le dernier ":"
+  let step3 = step2.substring(0, step2.lastIndexOf(':'))
+
+  return step3
+}
+
+export const getCleanPrompt = (mutedPrompt: string) => {
+  let cleanPrompt = ''
+  let trackArray = mutedPrompt.split(', with ')
+  for (let track of trackArray) {
+    let match = extractTextFromTrack(track)
+    if (match) {
+      cleanPrompt += match + ', '
+    }
+  }
+
+  cleanPrompt = cleanPrompt.slice(0, -2) // Retirer la dernière virgule et l'espace
+  return cleanPrompt
+}

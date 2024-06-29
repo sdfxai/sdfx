@@ -27,7 +27,7 @@
       <div class="flex-1 h-full noselect text-zinc-700 dark:text-white bg-white dark:bg-zinc-900/90 shadow-xl rounded-b-2xl">
         <section class="p-6">
           <form @submit.stop.prevent="submit">
-            <TWTextarea v-model="local.prompt" :limit="100" label="Positive" :showOptional="true" :autofocus="true" :rows="2" class="flex-auto"/>
+            <TWTextarea v-model="local.prompt" :limit="150" label="Positive" :showOptional="true" :autofocus="true" :rows="2" class="flex-auto"/>
             <div v-if="showSteps" class="mt-4 flex items-center justify-between space-x-3">
               <span class="w-32">Steps</span>
               <TWSlider

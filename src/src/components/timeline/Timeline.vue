@@ -18,7 +18,9 @@
         @dblClickTrack="dblClickTrack"
         @soloToggle="soloToggle"
         @muteToggle="muteToggle"
+        @createTrack="createTrack"
         @updateTrack="updateTrack"
+        @createBlock="createBlock"
         @updateBlock="updateBlock"
         @selectBlock="selectBlock"
         @deleteBlock="deleteBlock"
@@ -27,25 +29,25 @@
       />
 
       <!-- add track -->
-      <section class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex justify-between rounded-lg" style="min-height: 54px;">
-        <dt class="w-64 px-4 pt-4 flex justify-between bg-zinc-950/60 text-white frounded-l-lg">
-          <div class="truncate">
+      <section class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex justify-between" style="min-height: 54px;">
+        <dt class="w-64 px-2 pt-4 flex justify-between">
+          <button @click="createTrack()" class="truncate">
             <svg class="w-8 h-8 text-zinc-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
             </svg>
-          </div>
+          </button>
         </dt>
       </section>
 
       <!-- track placeholders -->
       <section class="bg-white dark:bg-zinc-900 flex justify-between rounded-lg" style="min-height: 54px;">
-        <dt class="w-64 px-4 pt-4 flex justify-between bg-zinc-950/60 text-white frounded-l-lg"></dt>
+        <dt class="w-64 px-4 pt-4 flex justify-between"></dt>
       </section>
       <section class="bg-white dark:bg-zinc-900 flex justify-between rounded-lg" style="min-height: 54px;">
-        <dt class="w-64 px-4 pt-4 flex justify-between bg-zinc-950/60 text-white frounded-l-lg"></dt>
+        <dt class="w-64 px-4 pt-4 flex justify-between"></dt>
       </section>
       <section class="bg-white dark:bg-zinc-900 flex justify-between rounded-lg" style="min-height: 54px;">
-        <dt class="w-64 px-4 pt-4 flex justify-between bg-zinc-950/60 text-white frounded-l-lg"></dt>
+        <dt class="w-64 px-4 pt-4 flex justify-between"></dt>
       </section>
     </div>
     <ModalLocalPrompt
@@ -71,6 +73,7 @@ import ModalLocalPrompt from '@/components/ModalLocalPrompt.vue'
 import ScrollableSection from '@/components/ScrollableSection.vue'
 
 const emit = defineEmits([
+  'createTrack',
   'updateTrack',
   'selectTrack',
   'dblClickTrack',
@@ -83,8 +86,6 @@ const emit = defineEmits([
   'copyBlock',
   'pasteBlock',
   'deleteBlock',
-  'sendToMainPrompt',
-  'sendToNegativePrompt',
   'releasePointer'
 ])
 
@@ -135,6 +136,10 @@ const localPromptPosition = ref({
   x: 0,
   y: 0
 })
+
+const createTrack = () => {
+  emit('createTrack')
+}
 
 const releasePointer = (track: any, e: any) => {
   emit('releasePointer', track, e)

@@ -3,6 +3,7 @@
     :id="id"
     :tracks="promptTracks"
     :progress="progressSteps"
+    @createTrack="createTrack"
     @updateTrack="updateTrack"
     @soloToggle="soloToggle"
     @muteToggle="muteToggle"
@@ -18,7 +19,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, PropType, nextTick } from 'vue'
 import { useMainStore, storeToRefs } from '@/stores'
-import { getBlocksFromPrompt, getTracksFromPromptBlocks } from '@/utils/prompt'
+import { getBlocksFromPrompt, getTracksFromPromptBlocks, getPromptFromTimeline } from '@/utils/prompt'
 import Timeline from '@/components/timeline/Timeline.vue'
 
 const emit = defineEmits(['change', 'update:modelValue', 'modified'])
@@ -43,7 +44,7 @@ const progressSteps = computed(() => {
 /**
  * deadlcock mechanism to prevent watch() to update
  */
- const lockWatch = () => {
+const lockWatch = () => {
   preventWatch.value = true
   clearTimeout(debounceTimer)
   debounceTimer = setTimeout(() => {
@@ -137,10 +138,18 @@ const setTimelineFromPrompt = (prompt: any) => {
   } else {
     let trackId = 0
     let start = 0
+    const totalChars = prompt.length
     const promptArray = prompt.split(',')
     const duration = 1 / promptArray.length
 
     tracks = promptArray.map((p: any) => {
+      let end = Math.min(1, start + (2*duration) + 2*(promptArray[trackId].length/totalChars) + 0.10*Math.random())
+
+      if (trackId === promptArray.length-1) {
+        start = 0
+        end = 1
+      }
+
       const track = {
         trackId: trackId,
         name: `Track ${trackId+1}`,
@@ -151,15 +160,19 @@ const setTimelineFromPrompt = (prompt: any) => {
           {
             id: crypto.randomUUID(),
             prompt: p.trim(),
-            start: 0.0,
-            end: 1.0
+            start: Math.max(0, start - 0.15*Math.random()),
+            end: end
           }
         ]
       }
       trackId++
-      start += duration-0.02
+      start += duration - 0.05
       return track
     })
+
+    const mutedPrompt: string = getPromptFromTimeline(tracks)
+    const newBlocks: any[] = getBlocksFromPrompt(mutedPrompt)
+    tracks = getTracksFromPromptBlocks(newBlocks)
   }
 
   promptTracks.value = tracks
@@ -169,21 +182,8 @@ const setTimelineFromPrompt = (prompt: any) => {
       createTrack()
     }
   }
-}
 
-const getPromptFromTimeline = (tracks: any[]) => {
-  let prompt: any[] = []
-
-  tracks.forEach(track => {
-    if (!track.muted) {
-      const blocks = track.blocks
-      blocks.forEach((e: any) => {
-        prompt.push(`[[${e.prompt}:${e.start.toFixed(5)}]::${e.end.toFixed(3)}]`)
-      })
-    }
-  })
-
-  return prompt.join(', with ')
+  emitUpdate(getPromptFromTimeline(promptTracks.value))
 }
 
 const setMuteAllTracks = (muted: boolean) => {

@@ -3,7 +3,7 @@
     @dblclick.stop.prevent="dblClickBlock" 
     @click.stop.prevent="selectBlock" 
     v-contextmenu:blockContextMenu 
-    class="pr-block relative border flex justify-between rounded-lg"
+    class="pr-block relative border flex justify-between rounded-md"
     :class="[
       selected?'bg-teal-700/40 border-teal-700':'bg-zinc-700/40 border-zinc-700',
       track.muted?'bg-zinc-300/20 border-zinc-500 opacity-20':null
@@ -15,15 +15,15 @@
       width:`${width*100}%`
     }"
   >
-    <div class="w-4 flex-shrink-0 duration-300 rounded-l-lg p-1 bg-zinc-950/60 h-full flex items-center justify-center">
-      <div :class="[dragging?'opacity-50':'opacity-25']" ref="leftBraceRef" class="relative space-x-px h-full flex cursor-col-resize py-px">
+    <div class="w-4 flex-shrink-0 duration-300 rounded-l-md p-1 bg-zinc-950/60 h-full flex items-center justify-center">
+      <div :class="[dragging?'opacity-50':'opacity-25']" ref="leftBraceRef" class="absolute w-6 z-10 h-full flex cursor-col-resize py-px">
         <div v-if="dragging" class="absolute rounded-full z-10 bg-black -top-14 -left-4 w-10 h-10 flex items-center justify-center">
           <div class="absolute -bottom-[1px] z-0 left-[0.60rem] w-5 h-5 bg-black rotate-45"></div>
           <span class="relative z-20 text-sm">{{ displayStart }}</span>
         </div>
-        <span class="border-r border-teal-400/30"></span>
-        <span class="border-r border-teal-950/10"></span>
-        <span class="border-r border-teal-400/30"></span>
+        <span class="border-2 border-r border-zinc-400/30 translate-x-2"></span>
+        <span class="border-2 border-r border-zinc-950/10 translate-x-2"></span>
+        <span class="border-2 border-r border-zinc-400/30 translate-x-2"></span>
       </div>
     </div>
     <div ref="blockRef" class="cursor-move px-3 py-2 flex-1 overflow-hidden text-sm tracking-wide font-semibold flex items-center">
@@ -31,27 +31,27 @@
         {{ block.prompt }}
       </div>
     </div>
-    <div class="w-4 flex-shrink-0 rounded-r-lg p-1 bg-zinc-950/60 h-full flex items-center justify-center">
-      <div :class="[dragging?'opacity-50':'opacity-25']" ref="rightBraceRef" class="relative space-x-px h-full flex cursor-col-resize py-px">
+    <div class="w-4 flex-shrink-0 rounded-r-md p-1 bg-zinc-950/60 h-full flex items-center justify-center">
+      <div :class="[dragging?'opacity-50':'opacity-25']" ref="rightBraceRef" class="absolute w-6 z-10 h-full flex cursor-col-resize py-px">
         <div v-if="dragging" class="absolute rounded-full z-10 bg-black -top-14 -left-4 w-10 h-10 flex items-center justify-center">
           <div class="absolute -bottom-[1px] z-0 left-[0.60rem] w-5 h-5 bg-black rotate-45"></div>
           <span class="relative z-20 text-sm">{{ displayEnd }}</span>
         </div>
-        <span class="border-r border-teal-400/30"></span>
-        <span class="border-r border-teal-800/10"></span>
-        <span class="border-r border-teal-400/30"></span>
+        <span class="border-2 border-r border-zinc-400/30 translate-x-2"></span>
+        <span class="border-2 border-r border-zinc-800/10 translate-x-2"></span>
+        <span class="border-2 border-r border-zinc-400/30 translate-x-2"></span>
       </div>
     </div>
     <v-contextmenu ref="blockContextMenu">
       <v-contextmenu-item v-if="false" @click="copyBlock">Copy</v-contextmenu-item>
       <v-contextmenu-item v-if="false" @click="pasteBlock">Paste</v-contextmenu-item>
       <v-contextmenu-divider v-if="false" />
-      <v-contextmenu-submenu v-if="false" title="Send to">
-        <v-contextmenu-item v-if="false" @click="sendToMainPrompt">Main Positive Prompt</v-contextmenu-item>
-        <v-contextmenu-item v-if="false" @click="sendToNegativePrompt">Main Negative Prompt</v-contextmenu-item>
+      <v-contextmenu-submenu title="Create">
+        <v-contextmenu-item @click="createTrack">New track</v-contextmenu-item>
+        <v-contextmenu-item @click="createBlock">New subtrack</v-contextmenu-item>
       </v-contextmenu-submenu>
       <v-contextmenu-divider />
-      <v-contextmenu-item @click="deleteBlock">Delete Block</v-contextmenu-item>
+      <v-contextmenu-item @click="deleteBlock">Delete Subtrack</v-contextmenu-item>
     </v-contextmenu>
   </div>
 </template>
@@ -60,13 +60,13 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const emit = defineEmits([
+  'createTrack',
   'dblClickBlock',
   'selectBlock',
   'copyBlock',
   'pasteBlock',
   'deleteBlock',
-  'sendToMainPrompt',
-  'sendToNegativePrompt',
+  'createBlock',
   'updateBlock',
   'releasePointer'
 ])
@@ -124,12 +124,12 @@ const deleteBlock = (e: any) => {
   emit('deleteBlock', props.block, e)
 }
 
-const sendToMainPrompt = (e: any) => {
-  emit('sendToMainPrompt', props.block, e)
+const createTrack = (e: any) => {
+  emit('createTrack', e)
 }
 
-const sendToNegativePrompt = (e: any) => {
-  emit('sendToNegativePrompt', props.block, e)
+const createBlock = (e: any) => {
+  emit('createBlock', e)
 }
 
 const handleBlockMousedown = (e: any) => {
@@ -158,7 +158,7 @@ const handleMouseMove = (e: any) => {
   if (!dragElement.value) return
   dragging.value = true
 
-  const dx = e.clientX - lastx
+  const dx = (e.clientX - lastx) * 1.50
   lastx = e.clientX
 
   if (dragElement.value==='leftBrace') {
