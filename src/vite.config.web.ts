@@ -5,6 +5,10 @@ import vue from '@vitejs/plugin-vue'
 import pkg from './package.json'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Components from 'unplugin-vue-components/vite'
+
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -56,6 +60,18 @@ export default defineConfig({
 
     vueI18n({
       include: [path.resolve(process.cwd(), 'src/locales/**')],
+    }),
+
+    Components({
+      dts: true,
+      resolvers: [IconsResolver()],
+      dirs: ['src/components', 'src/layout', 'src/views'],
+      deep: true,
+      extensions: ['vue'],
+    }),
+
+    Icons({
+      'compiler': 'vue3'
     }),
 
     splitVendorChunkPlugin()

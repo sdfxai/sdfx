@@ -22,39 +22,32 @@
     <ul class="py-2 font-semibold text-base text-zinc-800 dark:text-zinc-300 divide-y divide-zinc-300 dark:divide-zinc-900">
       <!-- refresh App -->
       <li @click="refreshSDFX()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
-        <ArrowPathIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
+        <i-tabler-reload class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
         <span>Refresh SDFX</span>
       </li>
       
       <!-- save app -->
       <li @click="saveCurrentWorkflow()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
-        <ArrowUpTrayIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
-        <span>Save App</span>
+        <i-iconoir-database-restore class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
+        <span>Save to App Store</span>
       </li>
 
       <!-- export app -->
       <li @click="exportCurrentWorkflow()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
-        <ArrowDownTrayIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
-        <span>Export App</span>
-      </li>
-
-      <!-- reset app -->
-      <li v-if="false" @click="resetCurrentApp()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
-        <CursorArrowRaysIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
-        <span>Reload Settings</span>
+        <i-tabler-file-export class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
+        <span>Export as JSON</span>
       </li>
 
       <!-- delete current workflow -->
       <li v-if="showDelete" @click="cleanAll()" class="px-3 py-2.5 flex w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 dark:hover:text-zinc-100 cursor-pointer items-center space-x-2">
-        <TrashIcon class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
-        <span>Clean All</span>
+        <i-carbon-intent-request-uninstall class="w-5 h-5 flex-shrink-0 text-zinc-400/80 dark:text-zinc-500"/>
+        <span>Uninstall App</span>
       </li>
     </ul>
   </TWDropMenu>
 </template>
 
 <script setup lang="ts">
-import { TrashIcon, ArrowPathIcon, ArrowUpTrayIcon, ArrowDownTrayIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid'
 import { saveJSONFile } from '@/utils'
 import { useConfirm } from '@/components/UI/VueConfirm/VueConfirm'
 import { usePrompt } from '@/components/UI/VuePrompt/VuePrompt'

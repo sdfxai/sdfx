@@ -24,6 +24,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.14",
     "@heroicons/vue": "^2.0.18",
+    "@iconify/json": "^2.2.223",
     "@img-comparison-slider/vue": "^8.0.0",
     "@splidejs/vue-splide": "^0.6.12",
     "@vueuse/core": "9.2.0",
@@ -38,7 +39,7 @@
     "install": "^0.13.0",
     "mitt": "^3.0.0",
     "node-fetch": "3.2.10",
-    "npm": "^9.6.7",
+    "npm": "^10.8.1",
     "pinia": "2.0.22",
     "sass": "^1.69.5",
     "smooth-scrollbar": "^8.8.3",
@@ -74,6 +75,9 @@
     "scss": "^0.2.4",
     "tailwindcss": "^3.3.5",
     "typescript": "4.8.3",
+    "unplugin-auto-import": "^0.17.6",
+    "unplugin-icons": "^0.19.0",
+    "unplugin-vue-components": "^0.27.2",
     "vite": "^3.2.3",
     "vite-plugin-electron": "^0.11.2",
     "vite-plugin-static-copy": "^0.15.0"

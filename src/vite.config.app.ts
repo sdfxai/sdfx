@@ -6,6 +6,10 @@ import electron, { startup } from 'vite-plugin-electron'
 import pkg from './package.json'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Components from 'unplugin-vue-components/vite'
+
 import { rmSync } from 'fs'
 rmSync('dist_electron', { recursive: true, force: true }) // v14.14.0
 
@@ -34,6 +38,18 @@ export default defineConfig({
     vueI18n({
       include: [path.resolve(process.cwd(), 'src/locales/**')],
     }),
+
+    Components({
+      dts: true,
+      resolvers: [IconsResolver()],
+      dirs: ['src/components', 'src/layout', 'src/views'],
+      deep: true,
+      extensions: ['vue'],
+    }),
+
+    Icons({
+      'compiler': 'vue3'
+    }), 
 
     electron([
       {
