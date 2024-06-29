@@ -4,7 +4,7 @@ export class SDFXAPI extends EventTarget {
   #registered = new Set()
   connectionAttempts = 0
   token: string | null = null
-  clientId: string = ''
+  clientId: string | null = null
   socket: WebSocket | null = null
   reconnectTimer: any = null
 
@@ -125,7 +125,7 @@ export class SDFXAPI extends EventTarget {
     const ws_endpoint = mainStore.server.ws_endpoint
 
     let opened = false
-    let clientId = window.name
+    this.clientId = mainStore.getClientId()
 
     this.socket = new WebSocket(`${ws_endpoint}/ws?clientId=${this.clientId}`)
     this.socket.binaryType = 'arraybuffer'
@@ -206,7 +206,7 @@ export class SDFXAPI extends EventTarget {
             case 'status':
               if (msg.data.sid) {
                 this.clientId = msg.data.sid
-                window.name = this.clientId
+                this.clientId && mainStore.setClientId(this.clientId)
               }
               this.dispatchEvent(new CustomEvent('status', { detail: msg.data.status }))
               break
@@ -653,6 +653,9 @@ export class SDFXAPI extends EventTarget {
    * @param {object} prompt The prompt data to queue
    */
   async queuePrompt(number: number, { output, workflow }: any) {
+    const mainStore = useMainStore()
+    this.clientId = mainStore.getClientId()
+
     const body: any = {
       client_id: this.clientId,
       prompt: output,
