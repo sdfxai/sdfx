@@ -90,6 +90,11 @@ export const useMainStore = defineStore('mainStore', {
       this.progress = defProgress
     },
 
+    resetGenerationStatus() {
+      this.status.generation = 'idle'
+      this.progress = defProgress
+    },    
+
     spinner(bool: boolean) {
       this.status.spinning = bool
     },

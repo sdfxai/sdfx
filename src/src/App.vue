@@ -133,6 +133,7 @@ const start = async () => {
   
   SDFXAPI.connect()
   SDFXAPI.onready = async () => {
+    mainStore.resetGenerationStatus()
     console.log('[SDFX] connected')
   }
 }
