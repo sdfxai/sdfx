@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { v4 as uuidv4 } from 'uuid'
 import { ref, computed, watch, onMounted, PropType, nextTick } from 'vue'
 import { useMainStore, storeToRefs } from '@/stores'
 import { getBlocksFromPrompt, getTracksFromPromptBlocks, getPromptFromTimeline } from '@/utils/prompt'
@@ -158,7 +159,7 @@ const setTimelineFromPrompt = (prompt: any) => {
         height: 38,
         blocks: [
           {
-            id: crypto.randomUUID(),
+            id: uuidv4(),
             prompt: p.trim(),
             start: Math.max(0, start - 0.15*Math.random()),
             end: end

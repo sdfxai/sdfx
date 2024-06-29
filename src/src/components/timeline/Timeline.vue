@@ -67,6 +67,7 @@
 </template>
 
 <script setup lang="ts">
+import { v4 as uuidv4 } from 'uuid'
 import { ref, computed, onMounted, onBeforeUnmount, PropType } from 'vue'
 import TimeTrack from '@/components/timeline/TimeTrack.vue'
 import ModalLocalPrompt from '@/components/ModalLocalPrompt.vue'
@@ -95,7 +96,6 @@ const props = defineProps({
 })
 
 let resizeObserver: any = null
-const scrollable = ref<any>(null)
 const editedBlock = ref<any>(null)
 const selectedBlock = ref<any>(null)
 const selectedTrack = ref<any>(null)
@@ -193,7 +193,7 @@ const createBlock = (track: any, e: any) => {
   const mx = e.offsetX / timelineWidth.value
 
   const block = {
-    id: crypto.randomUUID(),
+    id: uuidv4(),
     prompt: "",
     start: mx,
     end: Math.min(1, mx + 0.15)
