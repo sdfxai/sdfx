@@ -42,7 +42,7 @@
           </dt>
 
           <div class="p-2 text-xs truncate text-center">
-            {{ app.name || 'Untitled' }}
+            {{ app?.name || 'Untitled' }}
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
           :key="app.uid"
         >
           <dt
-            @click="showAppLoader(app.uid)"
+            @click="showAppLoader(app?.uid)"
             :class="[
               nodegraph.currentAppId===app.uid?'border-teal-400':'border-transparent cursor-pointer',
               app?.meta?.icon?'bg-white dark:bg-zinc-900/60':'shadow-sm bg-white dark:bg-zinc-900'
@@ -82,7 +82,7 @@
 
             <div class="relative hidden group-hover:flex items-center w-full h-full">
               <div v-if="!app?.meta?.factory" class="absolute top-0 right-0 p-1">
-                <button @click.stop.prevent="removeApp(app.uid)" class="text-zinc-400 hover:text-zinc-200">
+                <button @click.stop.prevent="removeApp(app?.uid)" class="text-zinc-400 hover:text-zinc-200">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
@@ -92,7 +92,7 @@
           </dt>
 
           <div class="p-2 text-xs truncate text-center">
-            {{ app.name || 'Untitled' }}
+            {{ app?.name || 'Untitled' }}
           </div>
         </div>
       </div>
@@ -170,15 +170,15 @@ const removeApp = async (uid: string) => {
 }
 
 const factoryAppList = computed(
-  () => appList.value.filter((n: any) => n.meta.factory)
+  () => appList.value.filter((n: any) => n?.meta?.factory)
 )
 
 const userAppList = computed(() => {
   return appList.value.filter((n: any) => {
-    if (n.meta.factory) return false
+    if (n?.meta?.factory) return false
     const q = props.query.toLowerCase()
 
-    if (n.name) {
+    if (n?.name) {
       const cond = n.name.toLowerCase().indexOf(q) > -1
       return props.query ? cond : true
     } else {
