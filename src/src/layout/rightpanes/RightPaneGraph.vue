@@ -97,11 +97,10 @@ const { nodegraph, preview } = storeToRefs(graphStore)
 const { status } = storeToRefs(useMainStore())
 
 const tab = ref('node')
-const displaySelectedNode = ref(true)
 
 const centerOnSelectedNode = () => {
   const node = nodegraph.value.selectedNode
-  node && sdfx.animateToNode(node)
+  node && sdfx.animateToNodeId(node.id)
 }
 
 const addToQueue = () => {
