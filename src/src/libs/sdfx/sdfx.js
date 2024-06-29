@@ -16,7 +16,7 @@ import { useMainStore, useModelStore, useGraphStore, storeToRefs } from '@/store
 import { v4 as uuidv4 } from 'uuid'
 // import { StateManager } from './stateManager.js'
 
-const debug = true
+const debug = false
 const log = debug ? console.log : (...args)=>{}
 
 const isEmptyObject = (obj) => (Object.keys(obj).length === 0 || !obj)
