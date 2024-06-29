@@ -10,8 +10,8 @@ const defStatus = () => ({
   isEmbed: false,
   isSocketConnected: false,
   isDependenciesModalVisible: false,
-  isLeftPaneVisible: false,
-  isRightPaneVisible: true,
+  isLeftPaneVisible: true,
+  isRightPaneVisible: false,
   isBottomPaneVisible: false,
   isNavigatorPaneVisible: false
 })
