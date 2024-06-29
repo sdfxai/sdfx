@@ -144,6 +144,10 @@ export const useGraphStore = defineStore('graphStore', {
       this.nodegraph.currentAppId = uid
     },
 
+    getCurrentAppId() {
+      return this.nodegraph.currentAppId
+    },
+
     async addApp(workflow: any) {
       if (!workflow) return
       const resp = await api.addWorkflow(workflow)
