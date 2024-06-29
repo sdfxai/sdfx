@@ -59,7 +59,7 @@ const { nodegraph } = storeToRefs(graphStore)
 const selectNode = (node: any) => {
   if (nodegraph.value.selectedNode === node) return
   graphStore.selectSDFXNode(node)
-  sdfx.animateToNode(node)
+  sdfx.animateToNodeId(node.id)
 }
 
 const filteredType = [

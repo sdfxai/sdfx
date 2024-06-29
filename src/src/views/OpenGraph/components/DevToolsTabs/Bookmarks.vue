@@ -46,7 +46,7 @@ const { nodegraph } = storeToRefs(graphStore)
 const selectNode = (node: any, animate: boolean = false) => {
   graphStore.selectSDFXNode(node)
   if (animate) {
-    sdfx.animateToNode(node)
+    sdfx.animateToNodeId(node.id)
   }
 }
 
