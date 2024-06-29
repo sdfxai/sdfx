@@ -258,6 +258,7 @@ const deleteBlock = (track: any, block: any, e: any) => {
     const idx = promptTrack.blocks.findIndex((e: any) => e.id === block.id)
     if (idx>-1) {
       promptTrack.blocks.splice(idx, 1)
+      emitUpdate(getPromptFromTimeline(promptTracks.value))
     }
   }
 }
