@@ -479,7 +479,7 @@ export const widgetDefaults = {
     name: 'Seed',
     type: 'number',
     min: 0,
-    max: 977173709552000,
+    max: 18446744073709551615,
     interval: 1,
     shiftInterval: 10,
     precision: 0
