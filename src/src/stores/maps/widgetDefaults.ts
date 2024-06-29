@@ -300,6 +300,34 @@ export const widgetDefaults = {
     defaultValue: 0.50
   },
 
+  'IPAdapter/weight': {
+    name: 'Weight',
+    type: 'slider',
+    color: 'pink',
+    min: 0.00,
+    max: 2.00,
+    interval: 0.01,
+    precision: 2,
+    range: [0.00, 0.50, 1.00, 0.50, 2.00],
+    snap: [0.00, 0.50, 1.00, 0.50, 2.00],
+    snapThreshold: 0.05,
+    defaultValue: 1.00
+  },
+
+  'IPAdapterFaceID/weight': {
+    name: 'Weight',
+    type: 'slider',
+    color: 'pink',
+    min: 0.00,
+    max: 2.00,
+    interval: 0.01,
+    precision: 2,
+    range: [0.00, 0.50, 1.00, 0.50, 2.00],
+    snap: [0.00, 0.50, 1.00, 0.50, 2.00],
+    snapThreshold: 0.05,
+    defaultValue: 1.00
+  },
+
   weight: {
     name: 'Weight',
     type: 'slider',
