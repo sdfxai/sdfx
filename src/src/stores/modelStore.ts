@@ -2,97 +2,6 @@ import { api } from '@/apis'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 
-const defPromptTracks = [
-  {
-    trackId: 0,
-    name: 'Track 1',
-    muted: false,
-    solo: false,
-    height: 38,
-    blocks: [
-      {
-        id: 'e30',
-        prompt: "a giant eggplant in a garden",
-        start: 0.00,
-        end: 0.35
-      },
-      {
-        id: 'e55',
-        prompt: "electric terrifying clouds in the background",
-        start: 0.39,
-        end: 0.78
-      },
-      {
-        id: 'e41',
-        prompt: "greenery space",
-        start: 0.70,
-        end: 0.82
-      }
-    ]
-  },
-  {
-    trackId: 1,
-    name: 'Track 2',
-    muted: false,
-    solo: false,
-    height: 38,
-    blocks: [
-      {
-        id: 'e40',
-        prompt: "a galaxy in a StarWar bio-mechanical spacecraft",
-        start: 0.10,
-        end: 0.63
-      }
-    ]
-  },
-  {
-    trackId: 2,
-    name: 'Track 3',
-    muted: false,
-    solo: false,
-    height: 38,
-    blocks: [
-      {
-        id: 'e50',
-        prompt: "supergirl sitting on a spacecraft while wearing sexy spiderman outfit",
-        start: 0.18,
-        end: 0.75
-      }
-    ]
-  },
-  {
-    trackId: 3,
-    name: 'Track 4',
-    muted: false,
-    solo: false,
-    height: 38,
-    blocks: [
-      {
-        id: 'e60',
-        prompt: "(wearing spiderman outfit:1.3)",
-        start: 0.43,
-        end: 1.00
-      }
-    ]
-  },
-  {
-    trackId: 4,
-    name: 'Track 5',
-    muted: false,
-    solo: false,
-    height: 38,
-    blocks: []
-  },
-  {
-    trackId: 5,
-    name: 'Track 6',
-    muted: false,
-    solo: false,
-    height: 38,
-    blocks: []
-  }
-]
-
 const defParameters = {
   selectedCheckpointId: null,
   preserveAspectRatio: true,
@@ -114,7 +23,6 @@ export const useModelStore = defineStore('modelStore', {
   state: () => ({
     modelMap: useStorage('modelMap', {} as any),
     parameters: useStorage('parameters', defParameters),
-    promptTracks: useStorage('promptTracks', defPromptTracks),
     imageGallery: useStorage('imageGallery', [] as any[]),
   }),
   
@@ -123,7 +31,6 @@ export const useModelStore = defineStore('modelStore', {
       this.modelMap = {}
       this.imageGallery = []
       this.parameters = defParameters
-      this.promptTracks = defPromptTracks
     },
 
     updateImageGallery(images: any[]) {
