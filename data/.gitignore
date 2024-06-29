@@ -18,6 +18,9 @@ media/gallery/*
 
 media/input/*
 !media/input/example.png
+!media/input/example-face-001.png
+!media/input/example-face-002.png
+!media/input/example-face-003.png
 !media/input/input_goes_here
 
 media/output/*
