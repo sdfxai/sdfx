@@ -1,4 +1,5 @@
 import { useMainStore } from '@/stores'
+import { v4 as uuidv4 } from 'uuid'
 
 export class SDFXAPI extends EventTarget {
   #registered = new Set()
@@ -125,7 +126,7 @@ export class SDFXAPI extends EventTarget {
     const ws_endpoint = mainStore.server.ws_endpoint
 
     let opened = false
-    this.clientId = mainStore.getClientId()
+    this.clientId = mainStore.getClientId() || uuidv4()
 
     this.socket = new WebSocket(`${ws_endpoint}/ws?clientId=${this.clientId}`)
     this.socket.binaryType = 'arraybuffer'
@@ -654,7 +655,7 @@ export class SDFXAPI extends EventTarget {
    */
   async queuePrompt(number: number, { output, workflow }: any) {
     const mainStore = useMainStore()
-    this.clientId = mainStore.getClientId()
+    this.clientId = mainStore.getClientId() || uuidv4()
 
     const body: any = {
       client_id: this.clientId,
