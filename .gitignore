@@ -9,13 +9,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # files & folders for dev
-x.app.bat
-x.web.bat
-x.server.bat
+*.app.bat
+*.web.bat
+*.server.bat
 package-lock.json
 yarn.lock
 ComfyUI
-sdfx.config.json
+*.config.json
 tmp
 node_modules
 dist
