@@ -27,6 +27,7 @@ pid.txt
 .venv
 .env
 venv
+taming
 
 # Editor directories and files
 .idea

@@ -39,6 +39,7 @@ media/temp/*
 !media/temp/temp_goes_here
 
 models/**/*.safetensors
+models/**/*.gguf
 models/**/*.pt
 models/**/*.pth
 models/**/*.ckpt
