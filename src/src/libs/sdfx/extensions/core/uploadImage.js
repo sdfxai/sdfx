@@ -6,7 +6,7 @@ app.registerExtension({
   name: 'SDFX.UploadImage',
 
   async beforeRegisterNodeDef(nodeType, nodeData) {
-    if (nodeData.name === 'LoadImage' || nodeData.name === 'LoadImageMask') {
+    if (nodeData.name === 'LoadImage' || nodeData.name === 'LoadImageMask' || nodeData.name === 'GlovyLoadimage') {
       nodeData.input.required.upload = ['IMAGEUPLOAD']
     }
   }

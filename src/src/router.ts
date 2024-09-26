@@ -57,6 +57,11 @@ const router = createRouter({
     },
 
     {
+      path: '/plugin',
+      component: () => import('@/views/TestPlugin.vue'),
+    },
+
+    {
       path: '/editor',
       component: LayoutEditor,
       meta: { needAuth: false, leftpane:false, rightpane:false },

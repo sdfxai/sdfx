@@ -1,12 +1,13 @@
 <template>
   <nav class="WorkspaceBar relative z-10 h-16 flex-shrink-0 px-3 bg-transparent border-b border-zinc-200 dark:border-black flex items-center justify-between">
-    <div class="flex items-center space-x-2">
+    <div v-if="false" class="flex items-center space-x-2">
+      <button @click="testPlugin()" class="tw-button sm transparent">Plugin Test</button>
       <h2 v-if="nodegraph && nodegraph.currentWorkflow" class="text-zinc-600 dark:text-zinc-400 text-2xl font-semibold">
         <span v-if="hasMapping">{{ nodegraph.currentWorkflow.name }}</span>
         <span v-if="!hasMapping">Untitled</span>
       </h2>
     </div>
-    <dt v-if="route?.name === 'graphview'" class="flex items-center space-x-2">    
+    <dt v-if="route?.name === 'graphview'" class="flex items-center space-x-2">   
       <!-- move -->
       <button @click="setTool('move')" class="w-10 h-10 border rounded-md flex items-center justify-center" :class="[tool==='move'?'border-teal-400 dark:border-teal-500/30 text-teal-700 dark:text-teal-200 bg-teal-400/30 dark:bg-teal-700/30':'border-zinc-300 dark:border-zinc-700/80 text-zinc-600 dark:text-zinc-400']">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 48 44">
@@ -35,10 +36,21 @@
         </svg>
       </button>
     </dt>
+    <dt v-else>
+      <h2 v-if="nodegraph && nodegraph.currentWorkflow" class="text-zinc-600 dark:text-zinc-400 text-2xl font-semibold">
+        <span v-if="hasMapping">{{ nodegraph.currentWorkflow.name }}</span>
+        <span v-if="!hasMapping">Untitled</span>
+      </h2>
+    </dt>
+
     <div class="flex items-center justify-between space-x-3">
       <ButtonGenerate :hasNextButton="hasNextButton"/>
       <ButtonActionsMenu v-if="hasMenuButton"/>
     </div>
+
+    <teleport to="body">
+      <ComfyPlugin v-if="isPluginOpen" :plugin="plugin" @close="isPluginOpen=false"/>
+    </teleport>
   </nav>
 </template>
 
@@ -50,6 +62,16 @@ import { useRoute } from 'vue-router'
 import { useMainStore, useGraphStore, storeToRefs } from '@/stores'
 import ButtonGenerate from '@/components/boxes/ButtonGenerate.vue'
 import ButtonActionsMenu from '@/components/boxes/ButtonActionsMenu.vue'
+import ComfyPlugin from '@/components/ComfyPlugin/ComfyPlugin.vue'
+
+const plugin = ref({
+  headless: false,
+  transparent: false,
+  name: 'Test Plugin',
+  url: 'http://192.168.1.7:5173/plugin',
+  width: '1024px',
+  height: '768px'
+})
 
 const props = defineProps({
   hasMenuButton: { type: Boolean, required: false, default: true },
@@ -61,12 +83,17 @@ const graphStore = useGraphStore()
 const { nodegraph } = storeToRefs(graphStore)
 const { workspaces } = storeToRefs(useMainStore())
 const tool = ref(sdfx.getTool())
+const isPluginOpen = ref(false)
 
 const hasMapping = computed(() => {
   return nodegraph.value.currentWorkflow 
     && nodegraph.value.currentWorkflow.mapping
     && Object.keys(nodegraph.value.currentWorkflow.mapping).length>0
 })
+
+const testPlugin = () => {
+  isPluginOpen.value = true
+}
 
 const setWorkspace = (id: string) => {
   workspaces.value.selectedId = id

@@ -7,7 +7,7 @@ import { CanvasEvents } from './canvas/CanvasEvents'
 import { CanvasContextMenu } from './canvas/CanvasContextMenu'
 import { checkPanels, closePanels, createPanel } from './canvas/dialogs/Panel'
 import { showDefaultNodePanel } from './canvas/dialogs/DefaultNodePanel'
-import { showSearchBox } from './canvas/dialogs/Search';
+import { showSearchBox } from './canvas/dialogs/Search'
 import { prompt } from './canvas/dialogs/Prompt'
 
 /**
@@ -960,7 +960,7 @@ LCanvas.prototype.centerOnNode = function (node) {
 
 /**
  * Centers the camera on a given node (animated version)
- * @method centerOnNode
+ * @method animateToNode
  **/
 LCanvas.prototype.animateToNode = function (node, duration = 350, zoom = 0.75, easing = 'easeInOutQuad') {
   let animationId = null

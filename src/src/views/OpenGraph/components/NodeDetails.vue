@@ -86,7 +86,15 @@ const compMap: any = {
     widgetNames: ['image'],
     widgetIds: [0],
     showLabel: true
-  }
+  },
+
+  'GlovyLoadimage': {
+    component: 'ImageLoader',
+    templates: ['image'],
+    widgetNames: ['image'],
+    widgetIds: [0],
+    showLabel: true
+  }  
 }
 
 const { nodegraph } = storeToRefs(useGraphStore())
