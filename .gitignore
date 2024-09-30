@@ -14,7 +14,7 @@ lerna-debug.log*
 *.server.bat
 package-lock.json
 yarn.lock
-ComfyUI
+ComfyUI/
 *.config.json
 tmp
 node_modules

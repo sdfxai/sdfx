@@ -4,7 +4,7 @@ import { sdfx as app } from '@/libs/sdfx/sdfx.js'
 
 app.registerExtension({
   name: 'SDFX.UploadImage',
-
+  /* ff*/ 
   async beforeRegisterNodeDef(nodeType, nodeData) {
     if (nodeData.name === 'LoadImage' || nodeData.name === 'LoadImageMask' || nodeData.name === 'GlovyLoadimage') {
       nodeData.input.required.upload = ['IMAGEUPLOAD']

@@ -1,4 +1,4 @@
-import { sdfx } from '@/libs/sdfx/sdfx.js'
+import { sdfx as app } from '@/libs/sdfx/sdfx.js'
 
 function getVideoMetadata(file) {
   return new Promise((r) => {
@@ -85,7 +85,6 @@ function getVideoMetadata(file) {
     reader.readAsArrayBuffer(file)
   })
 }
-
 function isVideoFile(file) {
   if (file?.name?.endsWith('.webm')) {
     return true
@@ -97,26 +96,18 @@ function isVideoFile(file) {
   return false
 }
 
+let originalHandleFile = app.handleFile
+app.handleFile = handleFile
 async function handleFile(file) {
   if (file?.type?.startsWith('video/') || isVideoFile(file)) {
     const videoInfo = await getVideoMetadata(file)
     if (videoInfo) {
       if (videoInfo.workflow) {
-        sdfx.loadGraphData(videoInfo.workflow)
+        app.loadGraphData(videoInfo.workflow)
       }
       //Potentially check for/parse A1111 metadata here.
     }
   } else {
-    await sdfx.originalHandleFile(file)
+    return await originalHandleFile.apply(this)
   }
 }
-
-//Storing the original function in sdfx is probably a major no-no
-//But it's the only way I've found to keep the 'this' reference
-sdfx.originalHandleFile = sdfx.handleFile
-sdfx.handleFile = handleFile
-
-//hijack comfy-file-input to allow webm/mp4
-/*
-document.getElementById('sdfx-file-input').accept += ',video/webm,video/mp4'
-*/

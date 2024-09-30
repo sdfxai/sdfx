@@ -23,11 +23,26 @@ const isEmptyObject = (obj) => (Object.keys(obj).length === 0 || !obj)
 
 const ANIM_PREVIEW_WIDGET = 'sdfx_animation_preview'
 
+const settings = {}
+
 export class SDFXApp extends EventTarget {
   constructor() {
     super()
     this.apiListenersInitied = false
     this.#reset()
+
+    this.ui = {
+      settings: {
+        getSettingValue: (settingId, defaultValue) => {
+          const setting = settings[settingId]
+          return setting ? setting.defaultValue : defaultValue
+        },
+
+        addSetting: (settingObject) => {
+          settings[settingObject.id] = settingObject
+        }
+      }
+    }
   }
 
   #reset() {
